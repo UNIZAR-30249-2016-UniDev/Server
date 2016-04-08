@@ -62,7 +62,7 @@ public class EspaciosServlet extends HttpServlet {
 		}
 		
 		if(response == null){
-			response = "{ espacio : " + tipo_espacio + " edificio : " + edificio + " planta : " + planta + " }";
+			response = "{ espacio : " + tipo_espacio + ", edificio : " + edificio + ", planta : " + planta + " }";
 		}
 		
 		setResponse(response, resp);
