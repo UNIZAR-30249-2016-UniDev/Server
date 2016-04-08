@@ -9,10 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dominio.entity.Espacio;
-import infraestructura.services.Espacio2Json;
-
-@WebServlet("/laboratorios")
 public class LaboratorioServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -33,6 +29,6 @@ public class LaboratorioServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		doGet(req,resp); //En principio todas serán GET
+		doGet(req,resp); //En principio todas seran GET
 	}
 }
