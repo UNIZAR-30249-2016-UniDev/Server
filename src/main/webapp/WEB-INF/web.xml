@@ -17,7 +17,7 @@
 </servlet-mapping>
 
 <listener>
-        <description>application startup and shutdown events</description>
+        <description>Simular el estado del campus cada hora</description>
         <display-name>SimuladorHandler</display-name>
         <listener-class>aplicacion.simulacion.SimuladorHandler</listener-class>
 </listener>
