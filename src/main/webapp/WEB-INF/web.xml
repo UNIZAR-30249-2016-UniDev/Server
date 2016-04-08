@@ -11,6 +11,16 @@
         <display-name>SimuladorHandler</display-name>
         <listener-class>aplicacion.simulacion.SimuladorHandler</listener-class>
 </listener>
+
+<servlet>
+	<servlet-name>LaboratorioServlet</servlet-name>
+	<servlet-class>infraestructura.mensajeria.LaboratorioServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>LaboratorioServlet</servlet-name>
+	<url-pattern>/laboratorios</url-pattern>
+</servlet-mapping>
     
 </web-app>
 
