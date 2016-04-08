@@ -8,9 +8,11 @@ import java.util.logging.Logger;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
 import dominio.repository.EspacioRepository;
 
+@WebListener
 public class SimuladorHandler  implements ServletContextListener {
 	private Logger logger = Logger.getGlobal();
 	

@@ -5,22 +5,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          metadata-complete="false">
-
-<listener>
-        <description>Simular el estado del campus cada hora</description>
-        <display-name>SimuladorHandler</display-name>
-        <listener-class>aplicacion.simulacion.SimuladorHandler</listener-class>
-</listener>
-
-<servlet>
-	<servlet-name>LaboratorioServlet</servlet-name>
-	<servlet-class>infraestructura.mensajeria.LaboratorioServlet</servlet-class>
-</servlet>
-
-<servlet-mapping>
-	<servlet-name>LaboratorioServlet</servlet-name>
-	<url-pattern>/laboratorios</url-pattern>
-</servlet-mapping>
     
 </web-app>
 
