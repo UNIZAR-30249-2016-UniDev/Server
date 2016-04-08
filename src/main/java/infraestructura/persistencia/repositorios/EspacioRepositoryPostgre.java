@@ -9,11 +9,11 @@ import java.util.List;
 import dominio.entity.Espacio;
 import dominio.repository.EspacioRepository;
 
-public class EspacioRepositoryImpl extends EspacioRepository {
+public class EspacioRepositoryPostgre extends EspacioRepository {
 
 	private Connection con = null;
 
-	public EspacioRepositoryImpl() {
+	public EspacioRepositoryPostgre() {
 		ConexionBD.iniciarConexion();
 		this.con = ConexionBD.getConexion();
 	}

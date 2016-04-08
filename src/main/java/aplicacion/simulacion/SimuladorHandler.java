@@ -1,6 +1,6 @@
 package aplicacion.simulacion;
 
-import infraestructura.persistencia.repositorios.EspacioRepositoryImpl;
+import infraestructura.persistencia.repositorios.EspacioRepositoryPostgre;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -32,7 +32,7 @@ public class SimuladorHandler  implements ServletContextListener {
 				logger.info("Simulacion");
 				Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
 				
-				EspacioRepository repo = new EspacioRepositoryImpl();
+				EspacioRepository repo = new EspacioRepositoryPostgre();
 				SimuladorEspacio simulador = new SimuladorEspacio(repo);
 				simulador.run();
 			}
