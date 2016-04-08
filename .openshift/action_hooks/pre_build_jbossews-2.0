@@ -1,0 +1,3 @@
+#!/bin/bash
+export MAVEN_ARGS="clean package -Popenshift"
+#export MAVEN_ARGS="clean"
