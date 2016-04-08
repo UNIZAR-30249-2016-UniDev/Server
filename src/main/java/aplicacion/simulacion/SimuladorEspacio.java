@@ -24,6 +24,11 @@ public class SimuladorEspacio extends Thread {
 	@Override
 	public void run() {
 		List<Espacio> espacios = repo.findAll();
+		
+		if(espacios == null){
+			return ;
+		}
+		
 		for(Espacio espacio : espacios){
 			SimuladorLuces.simular(espacio);
 			SimuladorTemperatura.simular(espacio);
