@@ -10,13 +10,13 @@ public abstract class EspacioRepository {
 		TQ, ADA, BETAN
 	};
 	
-	public abstract List<Espacio> findDespachos(int floor, EDIFICIO building);
+	public abstract List<Espacio> findDespachos(int floor, String building);
 	
-	public abstract List<Espacio> findLaboratorios(int floor, EDIFICIO building);
+	public abstract List<Espacio> findLaboratorios(int floor, String building);
 	
-	public abstract List<Espacio> findWcs(int floor, EDIFICIO building);
+	public abstract List<Espacio> findWcs(int floor, String building);
 	
-	public abstract List<Espacio> findAulas(int floor, EDIFICIO building);
+	public abstract List<Espacio> findAulas(int floor, String building);
 	
 	public abstract List<Espacio> findAll();
 	

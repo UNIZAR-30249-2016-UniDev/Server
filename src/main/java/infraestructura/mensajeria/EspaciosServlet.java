@@ -67,9 +67,6 @@ public class EspaciosServlet extends HttpServlet {
 		        case "aulas":
 		        	lista = repository.findAulas(planta, edificio);	
 		        	break;
-		        case "todo":
-		        	lista = repository.findAll(planta, edificio);	
-		        	break;
 			}
 			if (lista != null) {
 				resp.setStatus(HttpServletResponse.SC_OK);
