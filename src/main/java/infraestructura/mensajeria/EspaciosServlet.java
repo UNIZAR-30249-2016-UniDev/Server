@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dominio.entity.Espacio;
+import dominio.value_object.Constantes.EDIFICIO;
 import infraestructura.persistencia.repositorios.EspacioRepositoryPostgre;
 import infraestructura.services.Espacio2Json;
 
@@ -38,34 +39,36 @@ public class EspaciosServlet extends HttpServlet {
 	private void handleRequest(HttpServletRequest req, HttpServletResponse resp) {
 		String response = null;
 		String tipo_espacio = null;
-		String edificio = null;
+		String strEdificio = null;
 		String strFloor = null;
+		int edif = -1;
 		int planta = -1;
 		
 		tipo_espacio = req.getParameter(REQ_ESPACIO);
-		edificio = req.getParameter(REQ_EDIFICIO);
+		strEdificio = req.getParameter(REQ_EDIFICIO);
 		strFloor = req.getParameter(REQ_PLANTA);
 		
 		resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		
 		/* Chequear parametros */
-		if ((tipo_espacio != null) && (edificio != null) && (strFloor != null)
-				&& strFloor.matches("^\\d+$")) {
-			// es un entero
+		if ((tipo_espacio != null) && (strEdificio != null) && (strFloor != null)
+				&& strEdificio.matches("^\\d+$") && strFloor.matches("^\\d+$")) {
+			edif = Integer.parseInt(strEdificio);
+			EDIFICIO building = getEdificio(edif);
 			planta = Integer.parseInt(strFloor);
 			List<Espacio> lista = null;
 			switch (tipo_espacio) {
 				case "despachos":
-					lista = repository.findDespachos(planta, edificio);
+					lista = repository.findDespachos(planta, building);
 			        break;
 		        case "laboratorios":
-		        	lista = repository.findLaboratorios(planta, edificio);	
+		        	lista = repository.findLaboratorios(planta, building);	
 		        	break;
 		        case "wcs":
-		        	lista = repository.findWcs(planta, edificio);	
+		        	lista = repository.findWcs(planta, building);	
 		        	break;
 		        case "aulas":
-		        	lista = repository.findAulas(planta, edificio);	
+		        	lista = repository.findAulas(planta, building);	
 		        	break;
 			}
 			if (lista != null) {
@@ -89,6 +92,21 @@ public class EspaciosServlet extends HttpServlet {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	private EDIFICIO getEdificio(int edificio) {
+		if (edificio == 1) {
+			return EDIFICIO.ADA;
+		}
+		else if (edificio == 2) {
+			return EDIFICIO.TQ;
+		}
+		else if (edificio == 3) {
+			return EDIFICIO.BETAN;
+		}
+		else {
+			return EDIFICIO.UNKNOWN;
 		}
 	}
 }

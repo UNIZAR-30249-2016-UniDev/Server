@@ -1,5 +1,6 @@
 package dominio.entity;
 
+import dominio.value_object.Constantes.TYPE;
 import dominio.value_object.Location;
 import dominio.value_object.SensorActuadorBinario;
 import dominio.value_object.SensorActuadorTemperatura;

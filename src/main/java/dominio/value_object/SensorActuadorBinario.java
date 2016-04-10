@@ -1,10 +1,8 @@
 package dominio.value_object;
 
+import dominio.value_object.Constantes.STATE;
+
 public class SensorActuadorBinario {
-	
-	public enum STATE{
-		ON, OFF
-	};
 	
 	private STATE estado;
 	

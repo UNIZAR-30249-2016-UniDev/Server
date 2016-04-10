@@ -4,6 +4,7 @@ import dominio.value_object.Location;
 import dominio.value_object.SensorActuadorBinario;
 import dominio.value_object.SensorActuadorTemperatura;
 import dominio.value_object.Temperatura;
+import dominio.value_object.Constantes.TYPE;
 
 public class Espacio extends BaseEntity {
 
@@ -12,10 +13,6 @@ public class Espacio extends BaseEntity {
 
 	private SensorActuadorBinario luz;
 	private SensorActuadorTemperatura temperatura;
-
-	protected enum TYPE {
-		WC, LAB, AULA, DESPACHO
-	};
 
 	/**
 	 * Constructor de espacios
