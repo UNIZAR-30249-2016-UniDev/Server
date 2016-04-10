@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dominio.entity.Espacio;
 import dominio.value_object.Constantes.EDIFICIO;
+import dominio.value_object.Constantes.TYPE;
 import infraestructura.persistencia.repositorios.EspacioRepositoryPostgre;
 import infraestructura.services.Espacio2Json;
 
@@ -57,19 +58,17 @@ public class EspaciosServlet extends HttpServlet {
 			EDIFICIO building = getEdificio(edif);
 			planta = Integer.parseInt(strFloor);
 			List<Espacio> lista = null;
-			switch (tipo_espacio) {
-				case "despachos":
+			if (tipo_espacio.equals(TYPE.DESPACHO.toString())) {
 					lista = repository.findDespachos(planta, building);
-			        break;
-		        case "laboratorios":
-		        	lista = repository.findLaboratorios(planta, building);	
-		        	break;
-		        case "wcs":
+			}
+			else if (tipo_espacio.equals(TYPE.LAB.toString())) {
+					lista = repository.findLaboratorios(planta, building);	
+			}
+			else if (tipo_espacio.equals(TYPE.WC.toString())) {
 		        	lista = repository.findWcs(planta, building);	
-		        	break;
-		        case "aulas":
+			}
+			else if (tipo_espacio.equals(TYPE.AULA.toString())) {
 		        	lista = repository.findAulas(planta, building);	
-		        	break;
 			}
 			if (lista != null) {
 				resp.setStatus(HttpServletResponse.SC_OK);
