@@ -40,22 +40,20 @@ public class EspaciosServlet extends HttpServlet {
 	private void handleRequest(HttpServletRequest req, HttpServletResponse resp) {
 		String response = null;
 		String tipo_espacio = null;
-		String strEdificio = null;
+		String edificio = null;
 		String strFloor = null;
-		int edif = -1;
 		int planta = -1;
 		
 		tipo_espacio = req.getParameter(REQ_ESPACIO);
-		strEdificio = req.getParameter(REQ_EDIFICIO);
+		edificio = req.getParameter(REQ_EDIFICIO);
 		strFloor = req.getParameter(REQ_PLANTA);
 		
 		resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		
 		/* Chequear parametros */
-		if ((tipo_espacio != null) && (strEdificio != null) && (strFloor != null)
-				&& strEdificio.matches("^\\d+$") && strFloor.matches("^\\d+$")) {
-			edif = Integer.parseInt(strEdificio);
-			EDIFICIO building = getEdificio(edif);
+		if ((tipo_espacio != null) && (edificio != null) && (strFloor != null)
+				&& strFloor.matches("^\\d+$")) {
+			EDIFICIO building = getEdificio(edificio);
 			planta = Integer.parseInt(strFloor);
 			List<Espacio> lista = null;
 			if (tipo_espacio.equals(TYPE.DESPACHO.toString())) {
@@ -72,7 +70,7 @@ public class EspaciosServlet extends HttpServlet {
 			}
 			if (lista != null) {
 				resp.setStatus(HttpServletResponse.SC_OK);
-				response = "{ espacios : [";
+				response = "{ espacios : [ ";
 				for(Espacio espacio: lista) {
 					response += Espacio2Json.espacio2Json(espacio) + ",";
 				}
@@ -94,14 +92,14 @@ public class EspaciosServlet extends HttpServlet {
 		}
 	}
 	
-	private EDIFICIO getEdificio(int edificio) {
-		if (edificio == 1) {
+	private EDIFICIO getEdificio(String edificio) {
+		if (edificio.equals("ADA")) {
 			return EDIFICIO.ADA;
 		}
-		else if (edificio == 2) {
+		else if (edificio.equals("TQ")) {
 			return EDIFICIO.TQ;
 		}
-		else if (edificio == 3) {
+		else if (edificio.equals("BETAN")) {
 			return EDIFICIO.BETAN;
 		}
 		else {
