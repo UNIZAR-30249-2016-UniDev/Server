@@ -15,6 +15,7 @@ import dominio.value_object.Constantes.EDIFICIO;
 import dominio.value_object.Constantes.STATE;
 import dominio.value_object.Constantes.TYPE;
 import dominio.value_object.Location;
+import dominio.value_object.Point;
 import dominio.value_object.SensorActuadorBinario;
 import dominio.value_object.SensorActuadorTemperatura;
 import dominio.value_object.Temperatura;
@@ -33,14 +34,15 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
 			int edif = getBuilding(building);
-			String sql = "SELECT * FROM TB_ESPACIOS WHERE ID_EDIFICIO " + " = " + edif
-					+ " AND ID_PLANTA = " + floor + " AND ID_CENTRO LIKE 'DESPACHO%'";
+			String sql = "SELECT * FROM proyecto.planta_" + floor + "_despacho WHERE ID_EDIFICIO " + " = " + edif
+					+ " AND ID_PLANTA = " + floor;
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				STATE iluminacion = getState(rs.getString("ILUMINACION"));
-				espacios.add(new Espacio(rs.getString("ID_UTC"), null, TYPE.DESPACHO, new SensorActuadorBinario(iluminacion),
-					  new SensorActuadorTemperatura(new Temperatura(rs.getDouble("TEMPERATURA")), new Temperatura(20.0))));
+				espacios.add(new Espacio(rs.getString("ID_UTC"), new Location(new Point(rs.getDouble("LOCATIONX"), rs.getDouble("LOCATIONY")), floor, edif),
+						TYPE.DESPACHO, new SensorActuadorBinario(iluminacion), new SensorActuadorTemperatura(new Temperatura(rs.getDouble("TEMPERATURA")),
+								new Temperatura(rs.getDouble("TEMPERATURAOBJETIVO")))));
 			}
 		} catch (SQLException e) { }
 		return espacios;
@@ -51,14 +53,15 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
 			int edif = getBuilding(building);
-			String sql = "SELECT * FROM TB_ESPACIOS WHERE ID_EDIFICIO " + " = " + edif
-					+ " AND ID_PLANTA = " + floor + " AND ID_CENTRO LIKE 'L%'";
+			String sql = "SELECT * FROM proyecto.planta_" + floor + "_lab WHERE ID_EDIFICIO " + " = " + edif
+					+ " AND ID_PLANTA = " + floor;
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				STATE iluminacion = getState(rs.getString("ILUMINACION"));
-				espacios.add(new Espacio(rs.getString("ID_UTC"), null, TYPE.LAB, new SensorActuadorBinario(iluminacion),
-					  new SensorActuadorTemperatura(new Temperatura(rs.getDouble("TEMPERATURA")), new Temperatura(20.0))));
+				espacios.add(new Espacio(rs.getString("ID_UTC"), new Location(new Point(rs.getDouble("LOCATIONX"), rs.getDouble("LOCATIONY")), floor, edif),
+						TYPE.LAB, new SensorActuadorBinario(iluminacion), new SensorActuadorTemperatura(new Temperatura(rs.getDouble("TEMPERATURA")),
+								new Temperatura(rs.getDouble("TEMPERATURAOBJETIVO")))));
 			}
 		} catch (SQLException e) { }
 		return espacios;
@@ -69,14 +72,15 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
 			int edif = getBuilding(building);
-			String sql = "SELECT * FROM TB_ESPACIOS WHERE ID_EDIFICIO " + " = " + edif
-					+ " AND ID_PLANTA = " + floor + " AND ID_CENTRO LIKE 'BAÑOS'";
+			String sql = "SELECT * FROM proyecto.planta_" + floor + "_wc WHERE ID_EDIFICIO " + " = " + edif
+					+ " AND ID_PLANTA = " + floor;
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				STATE iluminacion = getState(rs.getString("ILUMINACION"));
-				espacios.add(new Espacio(rs.getString("ID_UTC"), null, TYPE.WC, new SensorActuadorBinario(iluminacion),
-					  new SensorActuadorTemperatura(new Temperatura(rs.getDouble("TEMPERATURA")), new Temperatura(20.0))));
+				espacios.add(new Espacio(rs.getString("ID_UTC"), new Location(new Point(rs.getDouble("LOCATIONX"), rs.getDouble("LOCATIONY")), floor, edif),
+						TYPE.WC, new SensorActuadorBinario(iluminacion), new SensorActuadorTemperatura(new Temperatura(rs.getDouble("TEMPERATURA")),
+								new Temperatura(rs.getDouble("TEMPERATURAOBJETIVO")))));
 			}
 		} catch (SQLException e) { }
 		return espacios;
@@ -87,14 +91,15 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
 			int edif = getBuilding(building);
-			String sql = "SELECT * FROM TB_ESPACIOS WHERE ID_EDIFICIO " + " = " + edif
-					+ " AND ID_PLANTA = " + floor + " AND (ID_CENTRO LIKE 'AULA%' OR ID_CENTRO LIKE 'SEMINARIO%')";
+			String sql = "SELECT * FROM proyecto.planta_" + floor + "_aula WHERE ID_EDIFICIO " + " = " + edif
+					+ " AND ID_PLANTA = " + floor;
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				STATE iluminacion = getState(rs.getString("ILUMINACION"));
-				espacios.add(new Espacio(rs.getString("ID_UTC"), null, TYPE.AULA, new SensorActuadorBinario(iluminacion),
-					  new SensorActuadorTemperatura(new Temperatura(rs.getDouble("TEMPERATURA")), new Temperatura(20.0))));
+				espacios.add(new Espacio(rs.getString("ID_UTC"), new Location(new Point(rs.getDouble("LOCATIONX"), rs.getDouble("LOCATIONY")), floor, edif),
+						TYPE.AULA, new SensorActuadorBinario(iluminacion), new SensorActuadorTemperatura(new Temperatura(rs.getDouble("TEMPERATURA")),
+								new Temperatura(rs.getDouble("TEMPERATURAOBJETIVO")))));
 			}
 		} catch (SQLException e) { }
 		return espacios;
@@ -110,8 +115,9 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 			if (rs.next()) {
 				TYPE tipo = getType(rs.getString("ID_CENTRO"));
 				STATE iluminacion = getState(rs.getString("ILUMINACION"));
-				espacio = new Espacio(rs.getString("ID_UTC"), null, tipo, new SensorActuadorBinario(iluminacion),
-						new SensorActuadorTemperatura(new Temperatura(rs.getDouble("TEMPERATURA")), new Temperatura(20.0)));
+				espacio = new Espacio(rs.getString("ID_UTC"), new Location(new Point(rs.getDouble("LOCATIONX"), rs.getDouble("LOCATIONY")), -1, -1),
+						tipo, new SensorActuadorBinario(iluminacion), new SensorActuadorTemperatura(new Temperatura(rs.getDouble("TEMPERATURA")),
+								new Temperatura(rs.getDouble("TEMPERATURAOBJETIVO"))));
 			}
 		} catch (SQLException e) { }
 		return espacio;
@@ -128,7 +134,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 				TYPE tipo = getType(rs.getString("ID_CENTRO"));
 				STATE iluminacion = getState(rs.getString("ILUMINACION"));
 				espacios.add(new Espacio(rs.getString("ID_UTC"), null, tipo, new SensorActuadorBinario(iluminacion),
-					  new SensorActuadorTemperatura(new Temperatura(rs.getDouble("TEMPERATURA")), new Temperatura(20.0))));
+					  new SensorActuadorTemperatura(new Temperatura(rs.getDouble("TEMPERATURA")), new Temperatura(rs.getDouble("TEMPERATURAOBJETIVO")))));
 			}
 		} catch (SQLException e) { }
 		return espacios;
