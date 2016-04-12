@@ -16,7 +16,7 @@ public class ConexionBD {
 	public static boolean iniciarConexion() {
 		try {
 			Class.forName("org.postgresql.Driver");
-			conexion = DriverManager.getConnection("jdbc:postgres://kvwkxeyidjqmms:Ar-RYxpcE6C4kErrimKCb0lXFD@ec2-79-125-126-192.eu-west-1.compute.amazonaws.com:5432/d7984qau8ubrrl");
+			conexion = DriverManager.getConnection("jdbc:postgresql://kvwkxeyidjqmms:Ar-RYxpcE6C4kErrimKCb0lXFD@ec2-79-125-126-192.eu-west-1.compute.amazonaws.com:5432/d7984qau8ubrrl");
 
 			if (conexion != null) {
 				return true;
