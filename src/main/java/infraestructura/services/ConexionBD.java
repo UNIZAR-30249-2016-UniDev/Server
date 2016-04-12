@@ -16,15 +16,7 @@ public class ConexionBD {
 	public static boolean iniciarConexion() {
 		try {
 			Class.forName("org.postgresql.Driver");
-			
-			// Url de acceso a la BD
-			String url = "jdbc:postgresql://ec2-79-125-126-192.eu-west-1.compute.amazonaws.com:5432/d7984qau8ubrrl";
-
-			// Usuario y password de la BD
-			String user = "kvwkxeyidjqmms";
-			String password = "Ar-RYxpcE6C4kErrimKCb0lXFD";
-
-			conexion = DriverManager.getConnection(url, user, password);
+			conexion = DriverManager.getConnection("postgres://kvwkxeyidjqmms:Ar-RYxpcE6C4kErrimKCb0lXFD@ec2-79-125-126-192.eu-west-1.compute.amazonaws.com:5432/d7984qau8ubrrl");
 
 			if (conexion != null) {
 				return true;
