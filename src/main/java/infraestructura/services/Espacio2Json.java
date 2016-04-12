@@ -2,6 +2,7 @@ package infraestructura.services;
 
 import dominio.entity.Espacio;
 import dominio.entity.Laboratorio;
+import dominio.value_object.Point;
 import dominio.value_object.Temperatura;
 
 public class Espacio2Json {
@@ -20,15 +21,18 @@ public class Espacio2Json {
 
 		boolean lucesOn = sp.lucesEncendidas();
 
+		Point coordenadas = sp.localizacion().getPoint();
+		
 		Temperatura temp = sp.temperatura();
 		Temperatura tempClimatizador = sp.temperaturaObjetivo();
 
 		String json = "{ ";
-		json += "\"id\":\"" + id + "\" ";
-		json += "\"luz\":\"" + lucesOn + "\" ";
-		json += "\"temperatura\":\"" + temp.getTemperature() + "\" ";
-		json += "\"temperaturaClim\":\"" + tempClimatizador.getTemperature()
-				+ "\" ";
+		json += "\"id\":\"" + id + "\", ";
+		json += "\"localizacion_x\":\"" + coordenadas.getX() + "\", ";
+		json += "\"localizacion_y\":\"" + coordenadas.getY() + "\", ";
+		json += "\"luz\":\"" + lucesOn + "\", ";
+		json += "\"temperatura\":\"" + temp.getTemperature() + "\", ";
+		json += "\"temperatura_objetivo\":\"" + tempClimatizador.getTemperature() + "\"";
 
 		/* atributos laboratorios */
 		if (sp.esLaboratorio()) {
@@ -37,8 +41,8 @@ public class Espacio2Json {
 			int capacidad = lab.capacidad();
 			int ocupacion = lab.ocupacion();
 
-			json += "\"capacidad\":\"" + capacidad + "\" ";
-			json += "\"ocupacion\":\"" + ocupacion + "\" ";
+			json += ", \"capacidad\":\"" + capacidad + "\" ";
+			json += ", \"ocupacion\":\"" + ocupacion + "\" ";
 		}
 
 		json += "}";
