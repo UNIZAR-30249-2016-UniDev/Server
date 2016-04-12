@@ -22,6 +22,7 @@ public class ConexionBD {
 				return true;
 			}
 		} catch (SQLException e) {
+			System.out.println(e);
 			System.out.println("Conexión fallida");
 		} catch (ClassNotFoundException e) {
 			System.out.println("Driver JDBC de PostgreSQL no encontrado");
