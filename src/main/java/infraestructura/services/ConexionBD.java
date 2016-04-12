@@ -16,18 +16,13 @@ public class ConexionBD {
 	public static boolean iniciarConexion() {
 		try {
 			Class.forName("org.postgresql.Driver");
-
-			// Variables de entorno para crear la url de acceso
-			String name = System.getenv("OPENSHIFT_APP_NAME");
-			String host = System.getenv("OPENSHIFT_POSTGRESQL_DB_HOST");
-			String port = System.getenv("OPENSHIFT_POSTGRESQL_DB_PORT");
-
+			
 			// Url de acceso a la BD
-			String url = "jdbc:postgresql://" + host + ":" + port + "/" + name;
+			String url = "jdbc:postgresql://192.168.1.42:5432/smartcampus";
 
 			// Usuario y password de la BD
-			String user = System.getenv("OPENSHIFT_POSTGRESQL_DB_USERNAME");
-			String password = System.getenv("OPENSHIFT_POSTGRESQL_DB_PASSWORD");
+			String user = "test";
+			String password = "test";
 
 			conexion = DriverManager.getConnection(url, user, password);
 
