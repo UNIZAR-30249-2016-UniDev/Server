@@ -18,11 +18,11 @@ public class ConexionBD {
 			Class.forName("org.postgresql.Driver");
 			
 			// Url de acceso a la BD
-			String url = "jdbc:postgresql://192.168.1.42:5432/smartcampus";
+			String url = "jdbc:postgresql://ec2-79-125-126-192.eu-west-1.compute.amazonaws.com:5432/d7984qau8ubrrl";
 
 			// Usuario y password de la BD
-			String user = "test";
-			String password = "test";
+			String user = "kvwkxeyidjqmms";
+			String password = "Ar-RYxpcE6C4kErrimKCb0lXFD";
 
 			conexion = DriverManager.getConnection(url, user, password);
 
