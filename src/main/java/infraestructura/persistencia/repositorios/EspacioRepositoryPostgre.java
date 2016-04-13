@@ -118,9 +118,9 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 				if (rs.next()) {
 					TYPE tipo = getType(rs.getString("ID_CENTRO"));
 					STATE iluminacion = getState(rs.getString("ILUMINACION"));
-					espacio = new Espacio(rs.getString("ID_UTC"), new Location(new Point(rs.getDouble("LOCATIONX"), rs.getDouble("LOCATIONY")), -1, -1),
-							tipo, new SensorActuadorBinario(iluminacion), new SensorActuadorTemperatura(new Temperatura(rs.getDouble("TEMPERATURA")),
-									new Temperatura(rs.getDouble("TEMPERATURAOBJETIVO"))));
+					espacio = new Espacio(rs.getString("ID_UTC"), new Location(new Point(rs.getDouble("LOCATIONX"), rs.getDouble("LOCATIONY")),
+							rs.getInt("ID_PLANTA"), rs.getInt("ID_EDIFICIO")), tipo, new SensorActuadorBinario(iluminacion),
+							new SensorActuadorTemperatura(new Temperatura(rs.getDouble("TEMPERATURA")), new Temperatura(rs.getDouble("TEMPERATURAOBJETIVO"))));
 					encontrado = true;
 				}
 				i++;
@@ -141,7 +141,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 					TYPE tipo = getType(rs.getString("ID_CENTRO"));
 					STATE iluminacion = getState(rs.getString("ILUMINACION"));
 					espacios.add(new Espacio(rs.getString("ID_UTC"), new Location(new Point(rs.getDouble("LOCATIONX"), rs.getDouble("LOCATIONY")), 
-							rs.getInt("ID_PLANTA"), rs.getInt("ID_EDIFICIO")),tipo, new SensorActuadorBinario(iluminacion),
+							rs.getInt("ID_PLANTA"), rs.getInt("ID_EDIFICIO")), tipo, new SensorActuadorBinario(iluminacion),
 							new SensorActuadorTemperatura(new Temperatura(rs.getDouble("TEMPERATURA")), new Temperatura(rs.getDouble("TEMPERATURAOBJETIVO")))));
 				}
 			}
@@ -197,11 +197,14 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		else if (tipo.contains("DESPACHO")) {
 			return TYPE.DESPACHO;
 		}
-		else if (tipo.contains("BAÑOS")) {
+		else if (tipo.contains("WC")) {
 			return TYPE.WC;
 		}
-		else {
+		else if (tipo.contains("LABORATORIO") || tipo.contains("L.")){
 			return TYPE.LAB;
+		}
+		else {
+			return TYPE.UNKNOWN;
 		}
 	}
 }

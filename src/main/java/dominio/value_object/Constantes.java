@@ -7,7 +7,7 @@ public class Constantes {
 	};
 	
 	public enum TYPE {
-		WC, LAB, AULA, DESPACHO
+		WC, LAB, AULA, DESPACHO, UNKNOWN
 	};
 	
 	public enum STATE{
