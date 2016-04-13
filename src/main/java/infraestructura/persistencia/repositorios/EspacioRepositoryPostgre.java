@@ -111,9 +111,9 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		try {
 			int i = 0;
 			boolean encontrado = false;
+			Statement stmt = conn.createStatement();
 			while (i < 5 && !encontrado) {
 				String sql = "SELECT * FROM proyecto.planta_" + i + "_base WHERE ID_UTC = '" + id + "'";
-				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);
 				if (rs.next()) {
 					TYPE tipo = getType(rs.getString("ID_CENTRO"));
@@ -133,9 +133,9 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	public List<Espacio> findAll() {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
+			Statement stmt = conn.createStatement();
 			for (int i = 0; i < 5; i++) {
 				String sql = "SELECT * FROM proyecto.planta_" + i + "_base";
-				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);
 				while (rs.next()) {
 					TYPE tipo = getType(rs.getString("ID_CENTRO"));
