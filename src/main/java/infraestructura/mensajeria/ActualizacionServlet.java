@@ -98,6 +98,10 @@ public class ActualizacionServlet extends HttpServlet {
 
 	private Espacio actualizarEspacio(Espacio espacio, boolean luz, int temperatura,
 			int calefaccion) {
+		if(espacio == null){
+			return null;
+		}
+		
 		if(luz){
 			espacio.encenderLuces();
 		}
