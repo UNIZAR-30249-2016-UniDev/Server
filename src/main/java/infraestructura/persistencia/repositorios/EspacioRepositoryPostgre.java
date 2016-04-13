@@ -11,6 +11,8 @@ import java.util.List;
 
 import dominio.entity.Espacio;
 import dominio.repository.EspacioRepository;
+import dominio.simulator.SimuladorLuces;
+import dominio.simulator.SimuladorTemperatura;
 import dominio.value_object.Constantes.EDIFICIO;
 import dominio.value_object.Constantes.STATE;
 import dominio.value_object.Constantes.TYPE;
@@ -134,18 +136,30 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 				TYPE tipo = getType(rs.getString("ID_CENTRO"));
 				STATE iluminacion = getState(rs.getString("ILUMINACION"));
 				espacios.add(new Espacio(rs.getString("ID_UTC"), null, tipo, new SensorActuadorBinario(iluminacion),
-					  new SensorActuadorTemperatura(new Temperatura(rs.getDouble("TEMPERATURA")), new Temperatura(rs.getDouble("TEMPERATURAOBJETIVO")))));
+						new SensorActuadorTemperatura(new Temperatura(rs.getDouble("TEMPERATURA")), new Temperatura(rs.getDouble("TEMPERATURAOBJETIVO")))));
 			}
 		} catch (SQLException e) { }
 		return espacios;
 	}
-	
+
 	@Override
-	public boolean update(List<Espacio> espacios) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean update(List<Espacio> espacios) {			
+		for (Espacio espacio : espacios){
+			String sql = "UPDATE TB_ESPACIOS "
+					+ "SET ILUMINACION ='"+espacio.lucesEncendidas()+"', TEMPERATURA ='"+espacio.temperatura()+"', TEMPERATURAOBJETIVO='"+espacio.temperaturaObjetivo()+"' "
+					+ "WHERE LOCATIONX = '"+espacio.localizacion().getPoint().getX()+"'"
+							+ " AND LOCATIONY = '"+espacio.localizacion().getPoint().getY()+"'";	
+			try {
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		return true;
 	}
-	
+
 	private int getBuilding(EDIFICIO building) {
 		if (building.toString().equals("ADA")) {
 			return 1;
@@ -160,7 +174,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 			return 0;
 		}
 	}
-	
+
 	private STATE getState(String estado) {
 		if (estado.equals("Y")) {
 			return STATE.ON;
@@ -169,7 +183,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 			return STATE.OFF;
 		}
 	}
-	
+
 	private TYPE getType(String tipo) {
 		if (tipo.contains("AULA") || tipo.contains("SEMINARIO")) {
 			return TYPE.AULA;
