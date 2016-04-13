@@ -116,10 +116,10 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		try {
 			int i = 0;
 			boolean encontrado = false;
-			String sql = "SELECT * FROM proyecto.planta__base WHERE ID_UTC = '" + id + "'";
+			String sql = "SELECT * FROM ? WHERE ID_UTC = '" + id + "'";
 			PreparedStatement pst = conn.prepareStatement(sql);
 			while (i < 5 && !encontrado) {
-				pst.setString(1, i+"");
+				pst.setString(1, "proyecto.planta_" + i + "_base");
 				ResultSet rs = pst.executeQuery(sql);
 				if (rs.next()) {
 					TYPE tipo = getType(rs.getString("ID_CENTRO"));
@@ -140,10 +140,10 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	public List<Espacio> findAll() {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
-			String sql = "SELECT * FROM proyecto.planta_?_aula";
+			String sql = "SELECT * FROM ?";
 			PreparedStatement pst = conn.prepareStatement(sql);
 			for (int i = 0; i < 5; i++) {
-				pst.setString(1, i+"");
+				pst.setString(1, "proyecto.planta_" + i + "_base");
 				ResultSet rs = pst.executeQuery(sql);
 				while (rs.next()) {
 					TYPE tipo = getType(rs.getString("ID_CENTRO"));
