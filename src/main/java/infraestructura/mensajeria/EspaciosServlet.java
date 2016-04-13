@@ -53,22 +53,27 @@ public class EspaciosServlet extends HttpServlet {
 		resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		
 		/* Chequear parametros */
-		if ((tipo_espacio != null) && (edificio != null) && (strFloor != null)
+		if ((edificio != null) && (strFloor != null)
 				&& strFloor.matches("^\\d+$")) {
 			EDIFICIO building = getEdificio(edificio);
 			planta = Integer.parseInt(strFloor);
 			List<Espacio> lista = null;
-			if (tipo_espacio.equals(TYPE.DESPACHO.toString())) {
-					lista = repository.findDespachos(planta, building);
+			if(tipo_espacio != null){
+				if (tipo_espacio.equals(TYPE.DESPACHO.toString())) {
+						lista = repository.findDespachos(planta, building);
+				}
+				else if (tipo_espacio.equals(TYPE.LAB.toString())) {
+						lista = repository.findLaboratorios(planta, building);	
+				}
+				else if (tipo_espacio.equals(TYPE.WC.toString())) {
+			        	lista = repository.findWcs(planta, building);	
+				}
+				else if (tipo_espacio.equals(TYPE.AULA.toString())) {
+			        	lista = repository.findAulas(planta, building);	
+				}
 			}
-			else if (tipo_espacio.equals(TYPE.LAB.toString())) {
-					lista = repository.findLaboratorios(planta, building);	
-			}
-			else if (tipo_espacio.equals(TYPE.WC.toString())) {
-		        	lista = repository.findWcs(planta, building);	
-			}
-			else if (tipo_espacio.equals(TYPE.AULA.toString())) {
-		        	lista = repository.findAulas(planta, building);	
+			else{
+				lista = repository.findAll();
 			}
 			if (lista != null) {
 				resp.setStatus(HttpServletResponse.SC_OK);
