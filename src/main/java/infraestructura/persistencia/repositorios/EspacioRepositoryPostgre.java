@@ -44,6 +44,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 						TYPE.DESPACHO, new SensorActuadorBinario(iluminacion), new SensorActuadorTemperatura(new Temperatura(rs.getDouble("TEMPERATURA")),
 								new Temperatura(rs.getDouble("TEMPERATURAOBJETIVO")))));
 			}
+			stmt.close();
 		} catch (SQLException e) { }
 		return espacios;
 	}
@@ -63,6 +64,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 						TYPE.LAB, new SensorActuadorBinario(iluminacion), new SensorActuadorTemperatura(new Temperatura(rs.getDouble("TEMPERATURA")),
 								new Temperatura(rs.getDouble("TEMPERATURAOBJETIVO")))));
 			}
+			stmt.close();
 		} catch (SQLException e) { }
 		return espacios;
 	}
@@ -82,6 +84,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 						TYPE.WC, new SensorActuadorBinario(iluminacion), new SensorActuadorTemperatura(new Temperatura(rs.getDouble("TEMPERATURA")),
 								new Temperatura(rs.getDouble("TEMPERATURAOBJETIVO")))));
 			}
+			stmt.close();
 		} catch (SQLException e) { }
 		return espacios;
 	}
@@ -101,6 +104,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 						TYPE.AULA, new SensorActuadorBinario(iluminacion), new SensorActuadorTemperatura(new Temperatura(rs.getDouble("TEMPERATURA")),
 								new Temperatura(rs.getDouble("TEMPERATURAOBJETIVO")))));
 			}
+			stmt.close();
 		} catch (SQLException e) { }
 		return espacios;
 	}
@@ -111,8 +115,8 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		try {
 			int i = 0;
 			boolean encontrado = false;
-			Statement stmt = conn.createStatement();
 			while (i < 5 && !encontrado) {
+				Statement stmt = conn.createStatement();
 				String sql = "SELECT * FROM proyecto.planta_" + i + "_base WHERE ID_UTC = '" + id + "'";
 				ResultSet rs = stmt.executeQuery(sql);
 				if (rs.next()) {
@@ -124,6 +128,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 					encontrado = true;
 				}
 				i++;
+				stmt.close();
 			}
 		} catch (SQLException e) { }
 		return espacio;
@@ -133,8 +138,8 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	public List<Espacio> findAll() {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
-			Statement stmt = conn.createStatement();
 			for (int i = 0; i < 5; i++) {
+				Statement stmt = conn.createStatement();
 				String sql = "SELECT * FROM proyecto.planta_" + i + "_base";
 				ResultSet rs = stmt.executeQuery(sql);
 				while (rs.next()) {
@@ -144,6 +149,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 							rs.getInt("ID_PLANTA"), rs.getInt("ID_EDIFICIO")), tipo, new SensorActuadorBinario(iluminacion),
 							new SensorActuadorTemperatura(new Temperatura(rs.getDouble("TEMPERATURA")), new Temperatura(rs.getDouble("TEMPERATURAOBJETIVO")))));
 				}
+				stmt.close();
 			}
 		} catch (SQLException e) { }
 		return espacios;
@@ -158,6 +164,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 			try {
 				Statement stmt = conn.createStatement();
 				stmt.executeQuery(sql);
+				stmt.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 				return false;
