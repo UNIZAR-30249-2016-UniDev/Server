@@ -3,6 +3,7 @@ package infraestructura.persistencia.repositorios;
 import infraestructura.services.ConexionBD;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -115,10 +116,11 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		try {
 			int i = 0;
 			boolean encontrado = false;
+			String sql = "SELECT * FROM proyecto.planta__base WHERE ID_UTC = '" + id + "'";
+			PreparedStatement pst = conn.prepareStatement(sql);
 			while (i < 5 && !encontrado) {
-				Statement stmt = conn.createStatement();
-				String sql = "SELECT * FROM proyecto.planta_" + i + "_base WHERE ID_UTC = '" + id + "'";
-				ResultSet rs = stmt.executeQuery(sql);
+				pst.setString(1, i+"");
+				ResultSet rs = pst.executeQuery(sql);
 				if (rs.next()) {
 					TYPE tipo = getType(rs.getString("ID_CENTRO"));
 					STATE iluminacion = getState(rs.getString("ILUMINACION"));
@@ -128,9 +130,8 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 					encontrado = true;
 				}
 				i++;
-				rs.close();
-				stmt.close();
 			}
+			pst.close();
 		} catch (SQLException e) { }
 		return espacio;
 	}
@@ -139,10 +140,11 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	public List<Espacio> findAll() {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
-			Statement stmt = conn.createStatement();
+			String sql = "SELECT * FROM proyecto.planta_?_base";
+			PreparedStatement pst = conn.prepareStatement(sql);
 			for (int i = 0; i < 5; i++) {
-				String sql = "SELECT * FROM proyecto.planta_" + i + "_base";
-				ResultSet rs = stmt.executeQuery(sql);
+				pst.setString(1, i+"");
+				ResultSet rs = pst.executeQuery(sql);
 				while (rs.next()) {
 					TYPE tipo = getType(rs.getString("ID_CENTRO"));
 					STATE iluminacion = getState(rs.getString("ILUMINACION"));
@@ -152,7 +154,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 				}
 				rs.close();
 			}
-			stmt.close();
+			pst.close();
 		} catch (SQLException e) { }
 		return espacios;
 	}
