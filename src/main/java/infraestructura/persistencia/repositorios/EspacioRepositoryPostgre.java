@@ -128,6 +128,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 					encontrado = true;
 				}
 				i++;
+				rs.close();
 				stmt.close();
 			}
 		} catch (SQLException e) { }
@@ -138,8 +139,8 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	public List<Espacio> findAll() {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
+			Statement stmt = conn.createStatement();
 			for (int i = 0; i < 5; i++) {
-				Statement stmt = conn.createStatement();
 				String sql = "SELECT * FROM proyecto.planta_" + i + "_base";
 				ResultSet rs = stmt.executeQuery(sql);
 				while (rs.next()) {
@@ -149,8 +150,9 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 							rs.getInt("ID_PLANTA"), rs.getInt("ID_EDIFICIO")), tipo, new SensorActuadorBinario(iluminacion),
 							new SensorActuadorTemperatura(new Temperatura(rs.getDouble("TEMPERATURA")), new Temperatura(rs.getDouble("TEMPERATURAOBJETIVO")))));
 				}
-				stmt.close();
+				rs.close();
 			}
+			stmt.close();
 		} catch (SQLException e) { }
 		return espacios;
 	}
