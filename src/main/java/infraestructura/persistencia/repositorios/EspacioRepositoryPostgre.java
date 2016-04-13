@@ -112,7 +112,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 			int i = 0;
 			boolean encontrado = false;
 			while (i < 5 && !encontrado) {
-				String sql = "SELECT * FROM planta_" + i + "_base WHERE ID_UTC = '" + id + "'";
+				String sql = "SELECT * FROM proyecto.planta_" + i + "_base WHERE ID_UTC = '" + id + "'";
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);
 				if (rs.next()) {
@@ -134,7 +134,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
 			for (int i = 0; i < 5; i++) {
-				String sql = "SELECT * FROM planta_" + i + "_base";
+				String sql = "SELECT * FROM proyecto.planta_" + i + "_base";
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);
 				while (rs.next()) {
@@ -152,7 +152,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	@Override
 	public boolean update(List<Espacio> espacios) {			
 		for (Espacio espacio : espacios) {
-			String sql = "UPDATE planta_" + espacio.localizacion().getFloor() + "_base "
+			String sql = "UPDATE proyecto.planta_" + espacio.localizacion().getFloor() + "_base "
 					+ "SET ILUMINACION ='"+espacio.lucesEncendidas()+"', TEMPERATURA ='"+espacio.temperatura()+"', TEMPERATURAOBJETIVO='"+espacio.temperaturaObjetivo()+"' "
 					+ "WHERE ID_UTC = '"+espacio.getID() + "'";	
 			try {
