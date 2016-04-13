@@ -32,7 +32,7 @@ public class SimuladorEspacio extends Thread {
 				SimuladorTemperatura.simular(espacio);
 			}
 			
-			boolean resultado = repo.update(espacios);
+			repo.update(espacios);
 		}
 	}
 }

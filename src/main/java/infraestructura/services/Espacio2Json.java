@@ -1,7 +1,6 @@
 package infraestructura.services;
 
 import dominio.entity.Espacio;
-import dominio.entity.Laboratorio;
 import dominio.value_object.Point;
 import dominio.value_object.Temperatura;
 

@@ -11,8 +11,6 @@ import java.util.List;
 
 import dominio.entity.Espacio;
 import dominio.repository.EspacioRepository;
-import dominio.simulator.SimuladorLuces;
-import dominio.simulator.SimuladorTemperatura;
 import dominio.value_object.Constantes.EDIFICIO;
 import dominio.value_object.Constantes.STATE;
 import dominio.value_object.Constantes.TYPE;
@@ -159,7 +157,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 					+ "WHERE ID_UTC = '"+espacio.getID() + "'";	
 			try {
 				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery(sql);
+				stmt.executeQuery(sql);
 			} catch (SQLException e) {
 				e.printStackTrace();
 				return false;

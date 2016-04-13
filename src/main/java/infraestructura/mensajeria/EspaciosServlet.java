@@ -1,5 +1,8 @@
 package infraestructura.mensajeria;
 
+import infraestructura.persistencia.repositorios.EspacioRepositoryPostgre;
+import infraestructura.services.Espacio2Json;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -11,10 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dominio.entity.Espacio;
+import dominio.repository.EspacioRepository;
 import dominio.value_object.Constantes.EDIFICIO;
 import dominio.value_object.Constantes.TYPE;
-import infraestructura.persistencia.repositorios.EspacioRepositoryPostgre;
-import infraestructura.services.Espacio2Json;
 
 @WebServlet(value="/espacios", name="EspaciosServlet")
 public class EspaciosServlet extends HttpServlet {
@@ -23,7 +25,7 @@ public class EspaciosServlet extends HttpServlet {
 	private static final String REQ_ESPACIO = "tipo";
 	private static final String REQ_EDIFICIO = "edificio";
 	private static final String REQ_PLANTA = "planta";
-	private static EspacioRepositoryPostgre repository = new EspacioRepositoryPostgre();
+	private static EspacioRepository repository = new EspacioRepositoryPostgre();
 	
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
