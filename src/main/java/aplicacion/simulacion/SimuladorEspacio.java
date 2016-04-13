@@ -25,15 +25,14 @@ public class SimuladorEspacio extends Thread {
 	public void run() {
 		List<Espacio> espacios = repo.findAll();
 		
-		if(espacios == null){
-			return ;
-		}
+		if(espacios != null) {
 		
-		for(Espacio espacio : espacios){
-			SimuladorLuces.simular(espacio);
-			SimuladorTemperatura.simular(espacio);
+			for(Espacio espacio : espacios) {
+				SimuladorLuces.simular(espacio);
+				SimuladorTemperatura.simular(espacio);
+			}
+			
+			boolean resultado = repo.update(espacios);
 		}
-		
-		boolean resultado = repo.update(espacios);	// TODO hacer algo con esto?
 	}
 }
