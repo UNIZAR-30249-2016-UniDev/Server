@@ -140,6 +140,12 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		return espacios;
 	}
 	
+	@Override
+	public boolean update(List<Espacio> espacios) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
 	private int getBuilding(EDIFICIO building) {
 		if (building.toString().equals("ADA")) {
 			return 1;

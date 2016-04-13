@@ -19,4 +19,6 @@ public abstract class EspacioRepository {
 	
 	public abstract Espacio finById(String id);
 	
+	public abstract boolean update(List<Espacio> espacios);
+	
 }
