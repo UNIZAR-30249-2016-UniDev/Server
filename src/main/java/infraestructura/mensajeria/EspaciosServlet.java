@@ -26,13 +26,13 @@ public class EspaciosServlet extends HttpServlet {
 	private static EspacioRepositoryPostgre repository = new EspacioRepositoryPostgre();
 	
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		handleRequest(req, resp);
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		handleRequest(req, resp);
 	}
