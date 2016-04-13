@@ -140,7 +140,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	public List<Espacio> findAll() {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
-			String sql = "SELECT * FROM proyecto.planta_?_base";
+			String sql = "SELECT * FROM proyecto.planta_?_aula";
 			PreparedStatement pst = conn.prepareStatement(sql);
 			for (int i = 0; i < 5; i++) {
 				pst.setString(1, i+"");
