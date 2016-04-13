@@ -35,7 +35,7 @@ public class Espacio2Json {
 		json += "\"temperatura_objetivo\":\"" + tempClimatizador.getTemperature() + "\"";
 
 		/* atributos laboratorios */
-		if (sp.esLaboratorio()) {
+		/*if (sp.esLaboratorio()) {
 			Laboratorio lab = (Laboratorio) sp;
 
 			int capacidad = lab.capacidad();
@@ -43,7 +43,7 @@ public class Espacio2Json {
 
 			json += ", \"capacidad\":\"" + capacidad + "\" ";
 			json += ", \"ocupacion\":\"" + ocupacion + "\" ";
-		}
+		}*/
 
 		json += "}";
 		return json;
