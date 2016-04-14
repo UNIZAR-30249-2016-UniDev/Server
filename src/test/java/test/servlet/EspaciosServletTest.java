@@ -1,7 +1,6 @@
 package test.servlet;
 
 import static org.junit.Assert.assertTrue;
-import infraestructura.mensajeria.EspaciosServlet;
 
 import java.io.IOException;
 
@@ -14,6 +13,8 @@ import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
+import aplicacion.EspaciosServlet;
+
 public class EspaciosServletTest {
 	
 	private EspaciosServlet servlet;
@@ -23,7 +24,7 @@ public class EspaciosServletTest {
 	/**
 	 * Setup para los tests del servlet
 	 */
-	@Ignore
+
 	@Before
 	public void setUp() {
 		servlet = new EspaciosServlet();
@@ -31,7 +32,6 @@ public class EspaciosServletTest {
 		resp = new MockHttpServletResponse();
 	}
 
-	@Ignore
 	@Test
 	public void test_ok() throws ServletException, IOException {
 		String edificio = "ADA";
