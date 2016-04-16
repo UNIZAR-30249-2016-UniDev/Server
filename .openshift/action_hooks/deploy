@@ -1,5 +1,0 @@
-#!/bin/bash
-
-echo "Deploying Geoserver application..." 
-cp ${OPENSHIFT_REPO_DIR}webapps/geoserver.war ${OPENSHIFT_JBOSSEWS_DIR}webapps/
-touch ${OPENSHIFT_JBOSSEWS_DIR}webapps/geoserver.war
