@@ -33,9 +33,12 @@ public class PruebaServlet extends HttpServlet{
 		String response = null;
 
 		resp.setStatus(HttpServletResponse.SC_OK);
-		response = Espacio2Json.espacio2Json(new Espacio("ID_UTC", new Location(new Point(675852.0310740708, 4616966.500697031), 
+		response = "{" + Espacio2Json.espacio2Json(new Espacio("ID_UTC_1", new Location(new Point(675852.0310740708, 4616966.500697031), 
 				1, 1), TYPE.LAB, new SensorActuadorBinario(STATE.ON),
-				new SensorActuadorTemperatura(new Temperatura(20.0), new Temperatura(22.0))));
+				new SensorActuadorTemperatura(new Temperatura(20.0), new Temperatura(22.0)))) + ", " +
+				Espacio2Json.espacio2Json(new Espacio("ID_UTC_2", new Location(new Point(675852.8918740708, 4616970.200697031),
+				1, 1), TYPE.AULA, new SensorActuadorBinario(STATE.OFF),
+				new SensorActuadorTemperatura(new Temperatura(19.0), new Temperatura(21.0)))) + "}";
 
 		setResponse(response, resp);
 	}
