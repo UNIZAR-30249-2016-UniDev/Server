@@ -27,9 +27,8 @@ public class Espacio2Json {
 
 		String json = "{ ";
 		json += "\"id\":\"" + id + "\", ";
-		json += "\"localizacion_x\":\"" + coordenadas.getX() + "\", ";
-		json += "\"localizacion_y\":\"" + coordenadas.getY() + "\", ";
-		json += "\"luz\":\"" + lucesOn + "\", ";
+		json += "\"localizacion\": [" + coordenadas.getX() + ", " + coordenadas.getY() + "], ";
+		json += "\"luz\":" + lucesOn + ", ";
 		json += "\"temperatura\":\"" + temp.getTemperature() + "\", ";
 		json += "\"temperatura_objetivo\":\"" + tempClimatizador.getTemperature() + "\"";
 

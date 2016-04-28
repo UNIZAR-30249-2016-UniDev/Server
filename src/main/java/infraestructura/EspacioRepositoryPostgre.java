@@ -33,7 +33,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
 			int edif = getBuilding(building);
-			String sql = "SELECT * FROM proyecto.espacio WHERE ID_EDIFICIO " + " = " + edif
+			String sql = "SELECT * FROM proyecto.espacios WHERE ID_EDIFICIO " + " = " + edif
 					+ " AND ID_PLANTA = " + floor + " AND ID_CENTRO LIKE 'DESPACHO%'";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -56,7 +56,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
 			int edif = getBuilding(building);
-			String sql = "SELECT * FROM proyecto.espacio WHERE ID_EDIFICIO " + " = " + edif
+			String sql = "SELECT * FROM proyecto.espacios WHERE ID_EDIFICIO " + " = " + edif
 					+ " AND ID_PLANTA = " + floor + " AND ID_CENTRO LIKE 'L.%' OR ID_CENTRO LIKE 'LABORATORIO%'";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -79,7 +79,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
 			int edif = getBuilding(building);
-			String sql = "SELECT * FROM proyecto.espacio WHERE ID_EDIFICIO " + " = " + edif
+			String sql = "SELECT * FROM proyecto.espacios WHERE ID_EDIFICIO " + " = " + edif
 					+ " AND ID_PLANTA = " + floor + " AND ID_CENTRO LIKE 'WC%'";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -102,7 +102,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
 			int edif = getBuilding(building);
-			String sql = "SELECT * FROM proyecto.espacio WHERE ID_EDIFICIO " + " = " + edif
+			String sql = "SELECT * FROM proyecto.espacios WHERE ID_EDIFICIO " + " = " + edif
 					+ " AND ID_PLANTA = " + floor + " AND ID_CENTRO LIKE 'AULA%'";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -124,7 +124,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	public Espacio finById(String id) {
 		Espacio espacio = null;
 		try {
-			String sql = "SELECT * FROM proyecto.espacio WHERE ID_UTC = '" + id + "'";
+			String sql = "SELECT * FROM proyecto.espacios WHERE ID_UTC = '" + id + "'";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			if (rs.next()) {
@@ -146,7 +146,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	public List<Espacio> findAll() {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
-			String sql = "SELECT * FROM proyecto.espacio";
+			String sql = "SELECT * FROM proyecto.espacios";
 			PreparedStatement pst = conn.prepareStatement(sql);
 			ResultSet rs = pst.executeQuery(sql);
 			while (rs.next()) {
@@ -162,7 +162,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		}
 		return espacios;
 	}
-
+	
 	@Override
 	public boolean update(List<Espacio> espacios) {			
 		for (Espacio espacio : espacios) {
