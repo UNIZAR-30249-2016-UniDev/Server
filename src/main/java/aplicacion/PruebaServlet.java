@@ -39,7 +39,7 @@ public class PruebaServlet extends HttpServlet{
 				Espacio2Json.espacio2Json(new Espacio("ID_UTC_2", new Location(new Point(675852.8918740708, 4616970.200697031),
 				1, 1), TYPE.AULA, new SensorActuadorBinario(STATE.OFF),
 				new SensorActuadorTemperatura(new Temperatura(19.0), new Temperatura(21.0)))) + "}";
-
+		
 		setResponse(response, resp);
 	}
 	
