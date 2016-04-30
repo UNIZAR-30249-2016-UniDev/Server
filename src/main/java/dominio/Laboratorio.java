@@ -10,14 +10,17 @@ public class Laboratorio extends Espacio {
 	/**
 	 * Constructor del Laboratio
 	 * @param location localizacion del espacio
-	 * @param luz sensor-actuador de la luz
+	 * @param luz sensor-actuador de la luz 
+	 * @param puertas sensor-actuador de puertas
+	 * @param presencia sensor-actuador de presencia
 	 * @param temperatura sensor-actuador de la temperatura
 	 * @param capacidad capacidad del laboratorio
 	 * @param ocupacion ocupacion inicial del laboratorio
 	 */
 	public Laboratorio(Location location, SensorActuadorBinario luz,
+			SensorActuadorBinario puertas, SensorActuadorBinario presencia,
 			SensorActuadorTemperatura temperatura, int capacidad, int ocupacion) {
-		super(location, TYPE.LAB, luz, temperatura);
+		super(location, TYPE.LAB, luz, puertas, presencia, temperatura);
 		this.capacidad = capacidad;
 		this.ocupacion = ocupacion;
 	}
@@ -27,13 +30,16 @@ public class Laboratorio extends Espacio {
 	 * @param id identificador de espacio personalizado
 	 * @param location localizacion del espacio
 	 * @param luz sensor-actuador de la luz
+	 * @param puertas sensor-actuador de puertas
+	 * @param presencia sensor-actuador de presencia
 	 * @param temperatura sensor-actuador de la temperatura
 	 * @param capacidad capacidad del laboratorio
 	 * @param ocupacion ocupacion inicial del laboratorio
 	 */
 	public Laboratorio(String id, Location location, SensorActuadorBinario luz,
+			SensorActuadorBinario puertas, SensorActuadorBinario presencia,
 			SensorActuadorTemperatura temperatura, int capacidad, int ocupacion) {
-		super(id, location, TYPE.LAB, luz, temperatura);
+		super(id, location, TYPE.LAB, luz, puertas, presencia, temperatura);
 		this.capacidad = capacidad;
 		this.ocupacion = ocupacion;
 	}

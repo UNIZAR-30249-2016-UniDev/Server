@@ -14,11 +14,15 @@ public class Wc extends Espacio {
 	 * Constructor del servicio (WC)
 	 * @param location localizacion del espacio
 	 * @param luz sensor-actuador del espacio
+	 * @param puertas sensor-actuador de puertas
+	 * @param presencia sensor-actuador de presencia 
 	 * @param temperatura sensor-ctuador del espacio
 	 * @param genero servicio de hombres o mujeres
 	 */
-	public Wc(Location location, SensorActuadorBinario luz, SensorActuadorTemperatura temperatura, GENDER genero) {
-		super(location, TYPE.WC, luz, temperatura);
+	public Wc(Location location, SensorActuadorBinario luz,
+			SensorActuadorBinario puertas, SensorActuadorBinario presencia,
+			SensorActuadorTemperatura temperatura, GENDER genero) {
+		super(location, TYPE.WC, luz, puertas, presencia, temperatura);
 		this.genero = genero;
 	}
 	
@@ -27,11 +31,15 @@ public class Wc extends Espacio {
 	 * @param id identificador del espacio personaliza
 	 * @param location localizacion del espacio
 	 * @param luz sensor-actuador del espacio
+	 * @param puertas sensor-actuador de puertas
+	 * @param presencia sensor-actuador de presencia 
 	 * @param temperatura sensor-ctuador del espacio
 	 * @param genero servicio de hombres o mujeres
 	 */
-	public Wc(String id, Location location, SensorActuadorBinario luz, SensorActuadorTemperatura temperatura, GENDER genero) {
-		super(id, location, TYPE.WC, luz, temperatura);
+	public Wc(String id, Location location, SensorActuadorBinario luz,
+			SensorActuadorBinario puertas, SensorActuadorBinario presencia,
+			SensorActuadorTemperatura temperatura, GENDER genero) {
+		super(id, location, TYPE.WC, luz, puertas, presencia, temperatura);
 		this.genero = genero;
 	}
 	

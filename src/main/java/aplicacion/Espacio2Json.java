@@ -19,6 +19,8 @@ public class Espacio2Json {
 		String id = sp.getID();
 
 		boolean lucesOn = sp.lucesEncendidas();
+		boolean puertasOpen = sp.abrirPuertas();
+		boolean presenciaOn = sp.encenderPresencia();
 
 		Point coordenadas = sp.localizacion().getPoint();
 		
@@ -29,6 +31,8 @@ public class Espacio2Json {
 		json += "\"id\":\"" + id + "\", ";
 		json += "\"localizacion\": [" + coordenadas.getX() + ", " + coordenadas.getY() + "], ";
 		json += "\"luz\":" + lucesOn + ", ";
+		json += "\"puertas\":" + puertasOpen + ", ";
+		json += "\"presencia\":" + presenciaOn + ", ";
 		json += "\"temperatura\":\"" + temp.getTemperature() + "\", ";
 		json += "\"temperatura_objetivo\":\"" + tempClimatizador.getTemperature() + "\"";
 

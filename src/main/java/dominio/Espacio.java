@@ -8,6 +8,8 @@ public class Espacio extends BaseEntity {
 	private TYPE type;
 
 	private SensorActuadorBinario luz;
+	private SensorActuadorBinario puertas;
+	private SensorActuadorBinario presencia;
 	private SensorActuadorTemperatura temperatura;
 
 	/**
@@ -15,13 +17,18 @@ public class Espacio extends BaseEntity {
 	 * @param location localizacion del espacio
 	 * @param type tipo de espacio
 	 * @param luz sensor-actuador de luz
+	 * @param puertas sensor-actuador de puertas
+	 * @param presencia sensor-actuador de presencia
 	 * @param temperatura sensor-actuador de temperatura
 	 */
 	public Espacio(Location location, TYPE type, SensorActuadorBinario luz,
+			SensorActuadorBinario puertas, SensorActuadorBinario presencia,
 			SensorActuadorTemperatura temperatura) {
 		this.location = location;
 		this.type = type;
 		this.luz = luz;
+		this.puertas = puertas;
+		this.presencia = presencia;
 		this.temperatura = temperatura;
 	}
 	
@@ -30,15 +37,20 @@ public class Espacio extends BaseEntity {
 	 * @param id identificador del espacio personalizado
 	 * @param location localizacion del espacio
 	 * @param type tipo de espacio
-	 * @param luz sensor-actuador de luz
+	 * @param luz sensor-actuador de luz 
+	 * @param puertas sensor-actuador de puertas
+	 * @param presencia sensor-actuador de presencia
 	 * @param temperatura sensor-actuador de temperatura
 	 */
 	public Espacio(String id, Location location, TYPE type, SensorActuadorBinario luz,
+			SensorActuadorBinario puertas, SensorActuadorBinario presencia,
 			SensorActuadorTemperatura temperatura) {
 		super(id);
 		this.location = location;
 		this.type = type;
 		this.luz = luz;
+		this.puertas = puertas;
+		this.presencia = presencia;
 		this.temperatura = temperatura;
 	}
 
@@ -96,6 +108,50 @@ public class Espacio extends BaseEntity {
 	 * @return true si ha apagado las luces del espacio, false en caso contrario
 	 */
 	public boolean apagarLuces(){
+		return false;	// TODO
+	}
+	
+	public boolean puertasAbiertas(){
+		return puertas.estaEncendido();
+	}
+	
+	public boolean puertasCerradas(){
+		return puertas.estaApagado();
+	}
+	
+	/**
+	 * @return true si han abierto las puertas del espacio, false en caso contrario
+	 */
+	public boolean abrirPuertas(){
+		return false;	// TODO
+	}
+	
+	/**
+	 * @return true si han cerrado las puertas del espacio, false en caso contrario
+	 */
+	public boolean cerrarPuertas(){
+		return false;	// TODO
+	}
+	
+	public boolean presenciaEncendida(){
+		return presencia.estaEncendido();
+	}
+	
+	public boolean presenciaApagada(){
+		return presencia.estaApagado();
+	}
+	
+	/**
+	 * @return true si ha encendido la presencia del espacio, false en caso contrario
+	 */
+	public boolean encenderPresencia(){
+		return false;	// TODO
+	}
+	
+	/**
+	 * @return true si ha apagado la presencia del espacio, false en caso contrario
+	 */
+	public boolean apagarPresencia(){
 		return false;	// TODO
 	}
 	

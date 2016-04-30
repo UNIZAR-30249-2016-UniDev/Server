@@ -2,14 +2,12 @@ package test.bd;
 
 import static org.junit.Assert.*;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.*;
 
 import dominio.Espacio;
 import dominio.EspacioRepository;
-import dominio.Constantes.EDIFICIO;
 import infraestructura.EspacioRepositoryPostgre;
 
 public class BDTest {
@@ -23,25 +21,25 @@ public class BDTest {
 
 	@Test
 	public void testFindDespachos() {
-		List<Espacio> espacios = prueba.findDespachos(0, EDIFICIO.ADA);
+		List<Espacio> espacios = prueba.findDespachos(0);
 		assertEquals(espacios.get(1).esDespacho(),true);
 	}
 	
 	@Test
 	public void testLaboratorios() {
-		List<Espacio> espacios = prueba.findLaboratorios(0, EDIFICIO.ADA);
+		List<Espacio> espacios = prueba.findLaboratorios(0);
 		assertEquals(espacios.get(1).esLaboratorio(),true);
 	}
 	
 	@Test
 	public void testFindAulas() {
-		List<Espacio> espacios = prueba.findAulas(0, EDIFICIO.ADA);
+		List<Espacio> espacios = prueba.findAulas(0);
 		assertEquals(espacios.get(1).esAula(),true);
 	}
 	
 	@Test
 	public void testFindWcs() {
-		List<Espacio> espacios = prueba.findWcs(0, EDIFICIO.ADA);
+		List<Espacio> espacios = prueba.findWcs(0);
 		assertEquals(espacios.get(1).esWC(),true);
 	}
 	

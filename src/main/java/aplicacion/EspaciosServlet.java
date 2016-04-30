@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import dominio.Espacio;
 import dominio.EspacioRepository;
-import dominio.Constantes.EDIFICIO;
 import dominio.Constantes.TYPE;
 import infraestructura.EspacioRepositoryPostgre;
 
@@ -34,34 +33,30 @@ public class EspaciosServlet extends HttpServlet {
 	private void handleRequest(HttpServletRequest req, HttpServletResponse resp) {
 		String response = null;
 		String tipo_espacio = null;
-		String edificio = null;
 		String strFloor = null;
 		int planta = -1;
 		
 		tipo_espacio = req.getParameter(REQ_ESPACIO);
-		edificio = req.getParameter(REQ_EDIFICIO);
 		strFloor = req.getParameter(REQ_PLANTA);
 		
 		resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		
 		/* Chequear parametros */
-		if ((edificio != null) && (strFloor != null)
-				&& strFloor.matches("^\\d+$")) {
-			EDIFICIO building = getEdificio(edificio);
+		if (strFloor != null && strFloor.matches("^\\d+$")) {
 			planta = Integer.parseInt(strFloor);
 			List<Espacio> lista = null;
 			if(tipo_espacio != null){
 				if (tipo_espacio.equals(TYPE.DESPACHO.toString())) {
-						lista = repository.findDespachos(planta, building);
+						lista = repository.findDespachos(planta);
 				}
 				else if (tipo_espacio.equals(TYPE.LAB.toString())) {
-						lista = repository.findLaboratorios(planta, building);	
+						lista = repository.findLaboratorios(planta);	
 				}
 				else if (tipo_espacio.equals(TYPE.WC.toString())) {
-			        	lista = repository.findWcs(planta, building);	
+			        	lista = repository.findWcs(planta);	
 				}
 				else if (tipo_espacio.equals(TYPE.AULA.toString())) {
-			        	lista = repository.findAulas(planta, building);	
+			        	lista = repository.findAulas(planta);	
 				}
 			}
 			else{
@@ -88,21 +83,6 @@ public class EspaciosServlet extends HttpServlet {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-	}
-	
-	private EDIFICIO getEdificio(String edificio) {
-		if (edificio.equals("ADA")) {
-			return EDIFICIO.ADA;
-		}
-		else if (edificio.equals("TQ")) {
-			return EDIFICIO.TQ;
-		}
-		else if (edificio.equals("BETAN")) {
-			return EDIFICIO.BETAN;
-		}
-		else {
-			return EDIFICIO.UNKNOWN;
 		}
 	}
 }
