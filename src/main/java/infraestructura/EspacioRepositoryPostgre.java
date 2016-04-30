@@ -161,6 +161,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 					+ " PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
+			stmt.close();
 			while (rs.next()) {
 				TYPE tipo = getType(rs.getString("ID_CENTRO"));
 				STATE iluminacion = getState(rs.getString("ILUMINACION"));
