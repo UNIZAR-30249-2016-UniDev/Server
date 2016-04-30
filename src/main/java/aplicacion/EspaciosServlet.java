@@ -20,7 +20,6 @@ public class EspaciosServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private static final String REQ_ESPACIO = "tipo";
-	private static final String REQ_EDIFICIO = "edificio";
 	private static final String REQ_PLANTA = "planta";
 	private static EspacioRepository repository = new EspacioRepositoryPostgre();
 	
