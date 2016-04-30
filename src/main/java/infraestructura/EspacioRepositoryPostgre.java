@@ -159,8 +159,8 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		try {
 			String sql = "SELECT ID_UTC,  ST_X(the_geom) AS LOCATIONX, ST_Y(the_geom) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
 					+ " PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios";
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
 			stmt.close();
 			while (rs.next()) {
 				TYPE tipo = getType(rs.getString("ID_CENTRO"));
