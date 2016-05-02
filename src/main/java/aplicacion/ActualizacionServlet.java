@@ -64,10 +64,10 @@ public class ActualizacionServlet extends HttpServlet {
 			if (strPresencia != null) {
 				presencia = Boolean.valueOf(strPresencia);
 			}
-			if (strTemp != null && strTemp.matches("^\\d+$")) {
+			if (strTemp != null) {
 				temp = Double.parseDouble(strTemp);
 			}
-			if (strTempObj != null && strTemp.matches("^\\d+$")) {
+			if (strTempObj != null) {
 				tempObj = Double.parseDouble(strTempObj);
 			}
 		}
