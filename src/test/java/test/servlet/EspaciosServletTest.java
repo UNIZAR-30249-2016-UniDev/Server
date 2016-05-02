@@ -33,6 +33,7 @@ public class EspaciosServletTest {
 	}
 
 	@Test
+	@Ignore
 	public void test_ok() throws ServletException, IOException {
 		String edificio = "ADA";
 		String tipo = "DESPACHO";
