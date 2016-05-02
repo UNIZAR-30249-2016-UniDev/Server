@@ -31,7 +31,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
 			String sql = "SELECT ID_UTC, ST_X(the_geom) AS LOCATIONX, ST_Y(the_geom) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
-					+ " PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios WHERE ID_PLANTA = " + floor + " AND ID_CENTRO LIKE 'DESPACHO%'";
+					+ " PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios WHERE ID_PLANTA = " + floor + " AND TIPO_DE_US = 17";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
@@ -56,7 +56,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
 			String sql = "SELECT ID_UTC, ST_X(the_geom) AS LOCATIONX, ST_Y(the_geom) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
-					+ " PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios WHERE ID_PLANTA = " + floor + " AND ID_CENTRO LIKE 'L.%' OR ID_CENTRO LIKE 'LABORATORIO%'";
+					+ " PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios WHERE ID_PLANTA = " + floor + " AND (TIPO_DE_US = 41 OR TIPO_DE_US = 44 OR TIPO_DE_US = 55)";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
@@ -81,7 +81,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
 			String sql = "SELECT ID_UTC, ST_X(the_geom) AS LOCATIONX, ST_Y(the_geom) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
-					+ " PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios WHERE ID_PLANTA = " + floor + " AND ID_CENTRO LIKE 'WC%' OR ID_CENTRO LIKE 'ASEO%'";
+					+ " PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios WHERE ID_PLANTA = " + floor + " AND (TIPO_DE_US = 7 OR TIPO_DE_US = 9)";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
@@ -106,7 +106,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
 			String sql = "SELECT ID_UTC, ST_X(the_geom) AS LOCATIONX, ST_Y(the_geom) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
-					+ " PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios WHERE ID_PLANTA = " + floor + " AND ID_CENTRO LIKE 'AULA%'";
+					+ " PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios WHERE ID_PLANTA = " + floor + " AND TIPO_DE_US = 6";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
@@ -130,12 +130,12 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	public Espacio findById(String id) {
 		Espacio espacio = null;
 		try {
-			String sql = "SELECT ID_UTC, ID_CENTRO, ID_PLANTA, ST_X(the_geom) AS LOCATIONX, ST_Y(the_geom) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
+			String sql = "SELECT ID_UTC, TIPO_DE_US, ID_PLANTA, ST_X(the_geom) AS LOCATIONX, ST_Y(the_geom) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
 					+ " PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios WHERE ID_UTC = '" + id + "'";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			if (rs.next()) {
-				TYPE tipo = getType(rs.getString("ID_CENTRO"));
+				TYPE tipo = getType(rs.getInt("TIPO_DE_US"));
 				STATE iluminacion = getState(rs.getString("ILUMINACION"));
 				STATE puertas = getState(rs.getString("PUERTAS"));
 				STATE presencia = getState(rs.getString("PRESENCIA"));
@@ -156,12 +156,12 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	public List<Espacio> findAll() {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
-			String sql = "SELECT ID_UTC, ID_CENTRO, ID_PLANTA, ST_X(the_geom) AS LOCATIONX, ST_Y(the_geom) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
+			String sql = "SELECT ID_UTC, TIPO_DE_US, ID_PLANTA, ST_X(the_geom) AS LOCATIONX, ST_Y(the_geom) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
 					+ " PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
-				TYPE tipo = getType(rs.getString("ID_CENTRO"));
+				TYPE tipo = getType(rs.getInt("TIPO_DE_US"));
 				STATE iluminacion = getState(rs.getString("ILUMINACION"));
 				STATE puertas = getState(rs.getString("PUERTAS"));
 				STATE presencia = getState(rs.getString("PRESENCIA"));
@@ -238,17 +238,17 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		}
 	}
 
-	private TYPE getType(String tipo) {
-		if (tipo.contains("AULA") || tipo.contains("SEMINARIO")) {
+	private TYPE getType(int tipo) {
+		if (tipo == 6) {
 			return TYPE.AULA;
 		}
-		else if (tipo.contains("DESPACHO")) {
+		else if (tipo == 17) {
 			return TYPE.DESPACHO;
 		}
-		else if (tipo.contains("WC")) {
+		else if (tipo == 7 || tipo == 9) {
 			return TYPE.WC;
 		}
-		else if (tipo.contains("LABORATORIO") || tipo.contains("L.")){
+		else if (tipo == 41 || tipo == 44 || tipo == 55){
 			return TYPE.LAB;
 		}
 		else {
