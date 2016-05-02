@@ -56,19 +56,19 @@ public class ActualizacionServlet extends HttpServlet {
 		if (id != null) {
 			error = false;
 			if (strLuz != null) {
-				luz = Boolean.getBoolean(strLuz);
+				luz = Boolean.valueOf(strLuz);
 			}
 			if (strPuertas != null) {
-				puertas = Boolean.getBoolean(strPuertas);
+				puertas = Boolean.valueOf(strPuertas);
 			}
 			if (strPresencia != null) {
-				presencia = Boolean.getBoolean(strPresencia);
+				presencia = Boolean.valueOf(strPresencia);
 			}
 			if (strTemp != null && strTemp.matches("^\\d+$")) {
-				temp = Double.parseDouble(strTemp);
+				temp = Double.valueOf(strTemp);
 			}
 			if (strTempObj != null && strTemp.matches("^\\d+$")) {
-				tempObj = Double.parseDouble(strTempObj);
+				tempObj = Double.valueOf(strTempObj);
 			}
 		}
 				
