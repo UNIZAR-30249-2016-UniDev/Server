@@ -48,7 +48,7 @@ public class ActualizacionServlet extends HttpServlet {
 		strPuertas = req.getParameter("puertas");
 		strPresencia = req.getParameter("presencia");
 		strTemp = req.getParameter("temperatura");
-		strTempObj = req.getParameter("calefaccion");
+		strTempObj = req.getParameter("temperatura_objetivo");
 
 		resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 
@@ -77,11 +77,7 @@ public class ActualizacionServlet extends HttpServlet {
 			espacio = actualizarEspacio(espacio, strLuz, luz, strPuertas,
 					puertas, strPresencia, presencia, temp, tempObj);
 			boolean actualizado = repository.updateById(espacio);
-			System.out.println(strLuz + luz + strPuertas + puertas +
-					strPresencia + presencia + strTemp + temp + strTempObj + tempObj);
-			System.out.println(""+espacio.lucesEncendidas()+espacio.puertasAbiertas()+
-					espacio.presenciaEncendida()+espacio.temperatura().getTemperature()+
-					espacio.temperaturaObjetivo().getTemperature());
+			
 			if (actualizado) {
 				response = Espacio2Json.espacio2Json(espacio);
 				resp.setStatus(HttpServletResponse.SC_OK);
