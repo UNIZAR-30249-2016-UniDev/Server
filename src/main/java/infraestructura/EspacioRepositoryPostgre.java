@@ -156,11 +156,10 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	public List<Espacio> findAll() {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
-			String sql = "SELECT ID_UTC, ST_X(the_geom) AS LOCATIONX, ST_Y(the_geom) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
+			String sql = "SELECT ID_UTC, ID_CENTRO, ST_X(the_geom) AS LOCATIONX, ST_Y(the_geom) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
 					+ " PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
-			stmt.close();
 			while (rs.next()) {
 				TYPE tipo = getType(rs.getString("ID_CENTRO"));
 				STATE iluminacion = getState(rs.getString("ILUMINACION"));
@@ -171,6 +170,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 						new SensorActuadorBinario(puertas), new SensorActuadorBinario(presencia), new SensorActuadorTemperatura(
 								new Temperatura(rs.getDouble("TEMPERATURA")), new Temperatura(rs.getDouble("TEMPERATURAOBJETIVO")))));
 			}
+			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Error en buscar todos");
