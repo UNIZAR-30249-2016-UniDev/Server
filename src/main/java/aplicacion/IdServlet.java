@@ -35,7 +35,7 @@ public class IdServlet extends HttpServlet{
 		
 		/* Chequear parametros */
 		if(id != null){
-			Espacio espacio = repository.finById(id);
+			Espacio espacio = repository.findById(id);
 			
 			if(espacio != null){
 				resp.setStatus(HttpServletResponse.SC_OK);

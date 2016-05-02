@@ -50,7 +50,7 @@ public class BDTest {
 	@Ignore
 	@Test
 	public void testFindById() {
-		Espacio espacio = prueba.finById("00.180");
+		Espacio espacio = prueba.findById("00.180");
 		assertEquals(espacio.localizacion().getPoint().getX(),"675854.0864458996");
 	}
 	

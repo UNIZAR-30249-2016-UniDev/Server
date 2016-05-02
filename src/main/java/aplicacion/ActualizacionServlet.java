@@ -2,8 +2,6 @@ package aplicacion;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,78 +30,97 @@ public class ActualizacionServlet extends HttpServlet {
 		String response = null;
 		String id = null;
 		String strLuz = null;
+		String strPuertas = null;
+		String strPresencia = null;
 		String strTemp = null;
 		String strTempObj = null;
 		
 		boolean luz = false;
-		int temp = -1;
-		int tempObj = -1;
+		boolean puertas = false;
+		boolean presencia = false;
+		double temp = -100.0;
+		double tempObj = -100.0;
 		
 		boolean error = true;
 
 		id = req.getParameter("id");
 		strLuz = req.getParameter("luz");
+		strPuertas = req.getParameter("puertas");
+		strPresencia = req.getParameter("presencia");
 		strTemp = req.getParameter("temperatura");
 		strTempObj = req.getParameter("calefaccion");
 
 		resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 
 		/* Chequear parametros */
-		if (id != null && strLuz != null && strTemp != null
-				&& strTempObj != null && strLuz.matches("^\\d$")
-				&& strTemp.matches("^\\d+$") && strTempObj.matches("^\\d+$")) {
-			temp = Integer.parseInt(strTemp);
-			tempObj = Integer.parseInt(strTempObj);
-			
-			int intLuz = Integer.parseInt(strLuz);
-			if(intLuz == 0){
-				luz = false;
-				error = false;
+		if (id != null) {
+			error = false;
+			if (strLuz != null) {
+				luz = Boolean.getBoolean(strLuz);
 			}
-			else if(intLuz == 1){
-				luz = true;
-				error = false;
+			if (strPuertas != null) {
+				puertas = Boolean.getBoolean(strPuertas);
 			}
-			else{
-				// error
-				error = true;
+			if (strPresencia != null) {
+				presencia = Boolean.getBoolean(strPresencia);
+			}
+			if (strTemp != null && strTemp.matches("^\\d+$")) {
+				temp = Double.parseDouble(strTemp);
+			}
+			if (strTempObj != null && strTemp.matches("^\\d+$")) {
+				tempObj = Double.parseDouble(strTempObj);
 			}
 		}
-		
-		if(!error){
-			Espacio espacio = repository.finById(id);
-			espacio = actualizarEspacio(espacio, luz, temp, tempObj);
-			List<Espacio> espacios = new LinkedList<Espacio>();
-			espacios.add(espacio);
-			
-			repository.update(espacios);
-			
-			espacio = repository.finById(id);
+				
+		if(!error) {
+			Espacio espacio = repository.findById(id);
+			espacio = actualizarEspacio(espacio, strLuz, luz, strPuertas,
+					puertas, strPresencia, presencia, temp, tempObj);
+			boolean actualizado = repository.updateById(espacio);
 
-			if (espacio != null) {
+			if (actualizado) {
 				resp.setStatus(HttpServletResponse.SC_OK);
-				response = "{" + Espacio2Json.espacio2Json(espacio) + "}";
+				response = Espacio2Json.espacio2Json(espacio);
 			}
 		}
 		setResponse(response, resp);
 	}
 
-	private Espacio actualizarEspacio(Espacio espacio, boolean luz, int temperatura,
-			int calefaccion) {
-		if(espacio == null){
+	private Espacio actualizarEspacio(Espacio espacio, String strLuz, boolean luz,
+			String strPuertas, boolean puertas, String strPresencia, boolean presencia,
+			double temperatura, double calefaccion) {
+		if(espacio == null) {
 			return null;
 		}
-		
-		if(luz){
-			espacio.encenderLuces();
-		}
-		else{
-			espacio.apagarLuces();
-		}
-		
-		espacio.cambiarTemperatura(new Temperatura(temperatura));
-		espacio.temperaturaObjetivo(new Temperatura(calefaccion));
-		
+		else {
+			if (strLuz != null) {
+				if (luz) {
+					espacio.encenderLuces();
+				} else {
+					espacio.apagarLuces();
+				}
+			}
+			if (strPuertas != null) {
+				if (puertas) {
+					espacio.abrirPuertas();
+				} else {
+					espacio.cerrarPuertas();
+				}
+			}
+			if (strPresencia != null) {
+				if (presencia) {
+					espacio.encenderPresencia();
+				} else {
+					espacio.apagarPresencia();
+				}
+			}
+			if (temperatura != -100.0) {
+				espacio.cambiarTemperatura(new Temperatura(temperatura));
+			}
+			if (calefaccion != -100.0) {
+				espacio.temperaturaObjetivo(new Temperatura(calefaccion));
+			}
+		}		
 		return espacio;
 	}
 

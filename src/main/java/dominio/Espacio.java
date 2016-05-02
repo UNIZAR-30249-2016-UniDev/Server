@@ -101,14 +101,20 @@ public class Espacio extends BaseEntity {
 	 * @return true si ha encendido las luces del espacio, false en caso contrario
 	 */
 	public boolean encenderLuces(){
-		return false;	// TODO
+		if (!luz.estaEncendido()) {
+			luz.actuar();
+		}
+		return luz.estaEncendido();
 	}
 	
 	/**
 	 * @return true si ha apagado las luces del espacio, false en caso contrario
 	 */
 	public boolean apagarLuces(){
-		return false;	// TODO
+		if (!luz.estaApagado()) {
+			luz.actuar();
+		}
+		return luz.estaApagado();
 	}
 	
 	public boolean puertasAbiertas(){
@@ -123,14 +129,20 @@ public class Espacio extends BaseEntity {
 	 * @return true si han abierto las puertas del espacio, false en caso contrario
 	 */
 	public boolean abrirPuertas(){
-		return false;	// TODO
+		if (!puertas.estaEncendido()) {
+			puertas.actuar();
+		}
+		return puertas.estaEncendido();
 	}
 	
 	/**
 	 * @return true si han cerrado las puertas del espacio, false en caso contrario
 	 */
 	public boolean cerrarPuertas(){
-		return false;	// TODO
+		if (!puertas.estaApagado()) {
+			puertas.actuar();
+		}
+		return puertas.estaApagado();
 	}
 	
 	public boolean presenciaEncendida(){
@@ -145,14 +157,20 @@ public class Espacio extends BaseEntity {
 	 * @return true si ha encendido la presencia del espacio, false en caso contrario
 	 */
 	public boolean encenderPresencia(){
-		return false;	// TODO
+		if (!presencia.estaEncendido()) {
+			presencia.actuar();
+		}
+		return presencia.estaEncendido();
 	}
 	
 	/**
 	 * @return true si ha apagado la presencia del espacio, false en caso contrario
 	 */
 	public boolean apagarPresencia(){
-		return false;	// TODO
+		if (!presencia.estaApagado()) {
+			presencia.actuar();
+		}
+		return presencia.estaApagado();
 	}
 	
 	/**

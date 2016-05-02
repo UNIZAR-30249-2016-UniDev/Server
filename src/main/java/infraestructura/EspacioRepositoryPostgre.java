@@ -127,7 +127,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	}
 
 	@Override
-	public Espacio finById(String id) {
+	public Espacio findById(String id) {
 		Espacio espacio = null;
 		try {
 			String sql = "SELECT ID_UTC, ID_CENTRO, ID_PLANTA, ST_X(the_geom) AS LOCATIONX, ST_Y(the_geom) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
@@ -181,9 +181,11 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	@Override
 	public boolean update(List<Espacio> espacios) {			
 		for (Espacio espacio : espacios) {
-			String sql = "UPDATE proyecto.espacios SET ILUMINACION ='"+espacio.lucesEncendidas()+"',"
-					+ " PUERTAS ='"+espacio.puertasAbiertas()+"', PRESENCIA ='"+espacio.presenciaEncendida()+"',"
-					+ " TEMPERATURA ='"+espacio.temperatura()+"', TEMPERATURAOBJETIVO ='"+espacio.temperaturaObjetivo()+"'"
+			String sql = "UPDATE proyecto.espacios SET ILUMINACION ='"+getString(espacio.lucesEncendidas())+"',"
+					+ " PUERTAS ='"+getString(espacio.puertasAbiertas())+"',"
+					+ " PRESENCIA ='"+getString(espacio.presenciaEncendida())+"',"
+					+ " TEMPERATURA ='"+espacio.temperatura().getTemperature()+"',"
+					+ " TEMPERATURAOBJETIVO ='"+espacio.temperaturaObjetivo().getTemperature()+"'"
 					+ " WHERE ID_UTC ='"+espacio.getID()+"'";	
 			try {
 				Statement stmt = conn.createStatement();
@@ -197,6 +199,26 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		}
 		return true;
 	}
+	
+	@Override
+	public boolean updateById(Espacio espacio) {
+		String sql = "UPDATE proyecto.espacios SET ILUMINACION ='"+getString(espacio.lucesEncendidas())+"',"
+				+ " PUERTAS ='"+getString(espacio.puertasAbiertas())+"',"
+				+ " PRESENCIA ='"+getString(espacio.presenciaEncendida())+"',"
+				+ " TEMPERATURA ='"+espacio.temperatura().getTemperature()+"',"
+				+ " TEMPERATURAOBJETIVO ='"+espacio.temperaturaObjetivo().getTemperature()+"'"
+				+ " WHERE ID_UTC ='"+espacio.getID()+"'";	
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.executeQuery(sql);
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error en actualizar espacios");
+			return false;
+		}
+		return true;
+	}
 
 	private STATE getState(String estado) {
 		if (estado.equals("Y")) {
@@ -204,6 +226,15 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		}
 		else {
 			return STATE.OFF;
+		}
+	}
+	
+	private String getString(boolean estado) {
+		if (estado) {
+			return "Y";
+		}
+		else {
+			return "N";
 		}
 	}
 

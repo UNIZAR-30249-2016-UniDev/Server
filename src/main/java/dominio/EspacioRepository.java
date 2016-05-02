@@ -14,8 +14,10 @@ public abstract class EspacioRepository {
 	
 	public abstract List<Espacio> findAll();
 	
-	public abstract Espacio finById(String id);
+	public abstract Espacio findById(String id);
 	
 	public abstract boolean update(List<Espacio> espacios);
+
+	public abstract boolean updateById(Espacio espacio);
 	
 }
