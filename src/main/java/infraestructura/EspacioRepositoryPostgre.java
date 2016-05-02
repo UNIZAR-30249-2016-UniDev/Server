@@ -81,7 +81,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
 			String sql = "SELECT ID_UTC, ST_X(the_geom) AS LOCATIONX, ST_Y(the_geom) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
-					+ " PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios WHERE ID_PLANTA = " + floor + " AND ID_CENTRO LIKE 'WC%'";
+					+ " PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios WHERE ID_PLANTA = " + floor + " AND ID_CENTRO LIKE 'WC%' OR ID_CENTRO LIKE 'ASEO%'";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
