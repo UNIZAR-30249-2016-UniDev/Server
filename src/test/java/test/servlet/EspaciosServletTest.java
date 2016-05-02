@@ -35,11 +35,9 @@ public class EspaciosServletTest {
 	@Test
 	@Ignore
 	public void test_ok() throws ServletException, IOException {
-		String edificio = "ADA";
 		String tipo = "DESPACHO";
 		String planta = "0";
-		
-		req.addParameter("edificio", edificio);
+
 		req.addParameter("tipo", tipo);
 		req.addParameter("planta", planta);
 
