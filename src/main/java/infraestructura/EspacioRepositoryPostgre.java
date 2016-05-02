@@ -131,7 +131,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	public Espacio finById(String id) {
 		Espacio espacio = null;
 		try {
-			String sql = "SELECT ID_UTC, ST_X(the_geom) AS LOCATIONX, ST_Y(the_geom) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
+			String sql = "SELECT ID_UTC, ID_CENTRO, ST_X(the_geom) AS LOCATIONX, ST_Y(the_geom) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
 					+ " PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios WHERE ID_UTC = '" + id + "'";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -157,10 +157,10 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	public List<Espacio> findAll() {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
-			String sql = "SELECT ID_UTC,  ST_X(the_geom) AS LOCATIONX, ST_Y(the_geom) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
+			String sql = "SELECT ID_UTC, ID_CENTRO, ST_X(the_geom) AS LOCATIONX, ST_Y(the_geom) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
 					+ " PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			ResultSet rs = stmt.executeQuery();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
 			stmt.close();
 			while (rs.next()) {
 				TYPE tipo = getType(rs.getString("ID_CENTRO"));
@@ -182,9 +182,9 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	@Override
 	public boolean update(List<Espacio> espacios) {			
 		for (Espacio espacio : espacios) {
-			String sql = "UPDATE proyecto.espacio SET ILUMINACION ='"+espacio.lucesEncendidas()+"',"
+			String sql = "UPDATE proyecto.espacios SET ILUMINACION ='"+espacio.lucesEncendidas()+"',"
 					+ " PUERTAS ='"+espacio.puertasAbiertas()+"', PRESENCIA ='"+espacio.presenciaEncendida()+"',"
-					+ " TEMPERATURA ='"+espacio.temperatura()+"', TEMPERATURAOBJETIVO='"+espacio.temperaturaObjetivo()+"'"
+					+ " TEMPERATURA ='"+espacio.temperatura()+"', TEMPERATURAOBJETIVO ='"+espacio.temperaturaObjetivo()+"'"
 					+ " WHERE ID_UTC ='"+espacio.getID()+"'";	
 			try {
 				Statement stmt = conn.createStatement();
