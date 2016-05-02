@@ -39,7 +39,7 @@ public class IdServlet extends HttpServlet{
 			
 			if(espacio != null){
 				resp.setStatus(HttpServletResponse.SC_OK);
-				response = "{" + Espacio2Json.espacio2Json(espacio) + "}";
+				response = Espacio2Json.espacio2Json(espacio);
 			}
 		}
 		setResponse(response, resp);
