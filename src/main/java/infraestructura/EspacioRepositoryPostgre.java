@@ -207,7 +207,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 				+ " PRESENCIA ='"+getString(espacio.presenciaEncendida())+"',"
 				+ " TEMPERATURA ='"+espacio.temperatura().getTemperature()+"',"
 				+ " TEMPERATURAOBJETIVO ='"+espacio.temperaturaObjetivo().getTemperature()+"'"
-				+ " WHERE ID_UTC ='"+espacio.getID()+"'";	
+				+ " WHERE ID_UTC ='"+espacio.getID()+"'";
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
