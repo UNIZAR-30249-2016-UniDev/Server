@@ -184,8 +184,8 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 			String sql = "UPDATE proyecto.espacios SET ILUMINACION ='"+getString(espacio.lucesEncendidas())+"',"
 					+ " PUERTAS ='"+getString(espacio.puertasAbiertas())+"',"
 					+ " PRESENCIA ='"+getString(espacio.presenciaEncendida())+"',"
-					+ " TEMPERATURA ='"+espacio.temperatura().getTemperature()+"',"
-					+ " TEMPERATURAOBJETIVO ='"+espacio.temperaturaObjetivo().getTemperature()+"'"
+					+ " TEMPERATURA ="+espacio.temperatura().getTemperature()+","
+					+ " TEMPERATURAOBJETIVO ="+espacio.temperaturaObjetivo().getTemperature()
 					+ " WHERE ID_UTC ='"+espacio.getID()+"'";	
 			try {
 				Statement stmt = conn.createStatement();
@@ -205,8 +205,8 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		String sql = "UPDATE proyecto.espacios SET ILUMINACION ='"+getString(espacio.lucesEncendidas())+"',"
 				+ " PUERTAS ='"+getString(espacio.puertasAbiertas())+"',"
 				+ " PRESENCIA ='"+getString(espacio.presenciaEncendida())+"',"
-				+ " TEMPERATURA ='"+espacio.temperatura().getTemperature()+"',"
-				+ " TEMPERATURAOBJETIVO ='"+espacio.temperaturaObjetivo().getTemperature()+"'"
+				+ " TEMPERATURA ="+espacio.temperatura().getTemperature()+","
+				+ " TEMPERATURAOBJETIVO ="+espacio.temperaturaObjetivo().getTemperature()
 				+ " WHERE ID_UTC ='"+espacio.getID()+"'";	
 		try {
 			Statement stmt = conn.createStatement();
@@ -214,7 +214,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Error en actualizar espacios");
+			System.out.println("Error en actualizar espacio por id" + espacio.getID());
 			return false;
 		}
 		return true;
