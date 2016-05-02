@@ -33,8 +33,8 @@ public class Espacio2Json {
 		json += "\"luz\":" + lucesOn + ", ";
 		json += "\"puertas\":" + puertasOpen + ", ";
 		json += "\"presencia\":" + presenciaOn + ", ";
-		json += "\"temperatura\":\"" + temp.getTemperature() + "\", ";
-		json += "\"temperatura_objetivo\":\"" + tempClimatizador.getTemperature() + "\"";
+		json += "\"temperatura\":" + temp.getTemperature() + ", ";
+		json += "\"temperatura_objetivo\":" + tempClimatizador.getTemperature();
 
 		/* atributos laboratorios */
 		/*if (sp.esLaboratorio()) {

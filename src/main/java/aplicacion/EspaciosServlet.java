@@ -63,11 +63,11 @@ public class EspaciosServlet extends HttpServlet {
 		}
 		if (lista != null) {
 			resp.setStatus(HttpServletResponse.SC_OK);
-			response = " ";
+			response = "{ \"espacios\" : [ ";
 			for(Espacio espacio: lista) {
 				response += Espacio2Json.espacio2Json(espacio) + ",";
 			}
-			response = response.substring(0, response.length()-1);
+			response = response.substring(0, response.length()-1) + "] }";
 		}
 		setResponse(response, resp);
 	}
