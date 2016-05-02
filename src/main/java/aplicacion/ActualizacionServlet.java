@@ -78,7 +78,10 @@ public class ActualizacionServlet extends HttpServlet {
 					puertas, strPresencia, presencia, temp, tempObj);
 			boolean actualizado = repository.updateById(espacio);
 			System.out.println(strLuz + luz + strPuertas + puertas +
-					strPresencia + presencia + temp + tempObj);
+					strPresencia + presencia + strTemp + temp + strTempObj + tempObj);
+			System.out.println(""+espacio.lucesEncendidas()+espacio.puertasAbiertas()+
+					espacio.presenciaEncendida()+espacio.temperatura().getTemperature()+
+					espacio.temperaturaObjetivo());
 			if (actualizado) {
 				response = Espacio2Json.espacio2Json(espacio);
 				resp.setStatus(HttpServletResponse.SC_OK);
