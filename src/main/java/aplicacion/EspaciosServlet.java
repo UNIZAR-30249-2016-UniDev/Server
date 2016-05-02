@@ -40,36 +40,35 @@ public class EspaciosServlet extends HttpServlet {
 		
 		resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		
+
+		List<Espacio> lista = null;
+		
 		/* Chequear parametros */
-		if (strFloor != null && strFloor.matches("^\\d+$")) {
+		if (strFloor != null && strFloor.matches("^\\d+$") && tipo_espacio != null) {
 			planta = Integer.parseInt(strFloor);
-			List<Espacio> lista = null;
-			if(tipo_espacio != null){
-				if (tipo_espacio.equals(TYPE.DESPACHO.toString())) {
-						lista = repository.findDespachos(planta);
-				}
-				else if (tipo_espacio.equals(TYPE.LAB.toString())) {
-						lista = repository.findLaboratorios(planta);	
-				}
-				else if (tipo_espacio.equals(TYPE.WC.toString())) {
-			        	lista = repository.findWcs(planta);	
-				}
-				else if (tipo_espacio.equals(TYPE.AULA.toString())) {
-			        	lista = repository.findAulas(planta);	
-				}
+			if (tipo_espacio.equals(TYPE.DESPACHO.toString())) {
+					lista = repository.findDespachos(planta);
 			}
-			else{
+			else if (tipo_espacio.equals(TYPE.LAB.toString())) {
+					lista = repository.findLaboratorios(planta);	
+			}
+			else if (tipo_espacio.equals(TYPE.WC.toString())) {
+		        	lista = repository.findWcs(planta);	
+			}
+			else if (tipo_espacio.equals(TYPE.AULA.toString())) {
+		        	lista = repository.findAulas(planta);
+			}
+		} else {
 				lista = repository.findAll();
+		}
+		if (lista != null) {
+			resp.setStatus(HttpServletResponse.SC_OK);
+			response = "{ espacios : [ ";
+			for(Espacio espacio: lista) {
+				response += Espacio2Json.espacio2Json(espacio) + ",";
 			}
-			if (lista != null) {
-				resp.setStatus(HttpServletResponse.SC_OK);
-				response = "{ espacios : [ ";
-				for(Espacio espacio: lista) {
-					response += Espacio2Json.espacio2Json(espacio) + ",";
-				}
-				response = response.substring(0, response.length()-1) + "] }";
-			}
-		}	
+			response = response.substring(0, response.length()-1) + "] }";
+		}
 		setResponse(response, resp);
 	}
 
