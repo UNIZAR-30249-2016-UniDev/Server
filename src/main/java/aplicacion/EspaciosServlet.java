@@ -63,7 +63,7 @@ public class EspaciosServlet extends HttpServlet {
 		}
 		if (lista != null) {
 			resp.setStatus(HttpServletResponse.SC_OK);
-			response = "{ espacios : [ ";
+			response = "{ \"espacios\" : [ ";
 			for(Espacio espacio: lista) {
 				response += Espacio2Json.espacio2Json(espacio) + ",";
 			}
