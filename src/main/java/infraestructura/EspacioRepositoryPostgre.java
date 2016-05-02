@@ -130,7 +130,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	public Espacio finById(String id) {
 		Espacio espacio = null;
 		try {
-			String sql = "SELECT ID_UTC, ID_CENTRO, ST_X(the_geom) AS LOCATIONX, ST_Y(the_geom) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
+			String sql = "SELECT ID_UTC, ID_CENTRO, ID_PLANTA, ST_X(the_geom) AS LOCATIONX, ST_Y(the_geom) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
 					+ " PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios WHERE ID_UTC = '" + id + "'";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -156,7 +156,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	public List<Espacio> findAll() {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
-			String sql = "SELECT ID_UTC, ID_CENTRO, ST_X(the_geom) AS LOCATIONX, ST_Y(the_geom) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
+			String sql = "SELECT ID_UTC, ID_CENTRO, ID_PLANTA, ST_X(the_geom) AS LOCATIONX, ST_Y(the_geom) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
 					+ " PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
