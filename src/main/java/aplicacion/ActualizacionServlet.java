@@ -65,10 +65,10 @@ public class ActualizacionServlet extends HttpServlet {
 				presencia = Boolean.valueOf(strPresencia);
 			}
 			if (strTemp != null && strTemp.matches("^\\d+$")) {
-				temp = Double.valueOf(strTemp);
+				temp = Double.parseDouble(strTemp);
 			}
 			if (strTempObj != null && strTemp.matches("^\\d+$")) {
-				tempObj = Double.valueOf(strTempObj);
+				tempObj = Double.parseDouble(strTempObj);
 			}
 		}
 				
@@ -81,7 +81,7 @@ public class ActualizacionServlet extends HttpServlet {
 					strPresencia + presencia + strTemp + temp + strTempObj + tempObj);
 			System.out.println(""+espacio.lucesEncendidas()+espacio.puertasAbiertas()+
 					espacio.presenciaEncendida()+espacio.temperatura().getTemperature()+
-					espacio.temperaturaObjetivo());
+					espacio.temperaturaObjetivo().getTemperature());
 			if (actualizado) {
 				response = Espacio2Json.espacio2Json(espacio);
 				resp.setStatus(HttpServletResponse.SC_OK);
