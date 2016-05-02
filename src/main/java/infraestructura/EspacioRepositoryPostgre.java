@@ -1,13 +1,14 @@
 package infraestructura;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
+import dominio.Constantes.STATE;
+import dominio.Constantes.TYPE;
 import dominio.Espacio;
 import dominio.EspacioRepository;
 import dominio.Location;
@@ -15,8 +16,6 @@ import dominio.Point;
 import dominio.SensorActuadorBinario;
 import dominio.SensorActuadorTemperatura;
 import dominio.Temperatura;
-import dominio.Constantes.STATE;
-import dominio.Constantes.TYPE;
 
 public class EspacioRepositoryPostgre extends EspacioRepository {
 
