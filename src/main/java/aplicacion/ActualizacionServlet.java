@@ -14,7 +14,7 @@ import dominio.EspacioRepository;
 import dominio.Temperatura;
 import infraestructura.EspacioRepositoryPostgre;
 
-@WebServlet(value = "/actualizacion", name = "ActualizacionServlet")
+@WebServlet(value = "/api/actualizacion", name = "ActualizacionServlet")
 public class ActualizacionServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

@@ -13,7 +13,7 @@ import dominio.Espacio;
 import dominio.EspacioRepository;
 import infraestructura.EspacioRepositoryPostgre;
 
-@WebServlet(value="/identificacion", name="IdServlet")
+@WebServlet(value="/api/identificacion", name="IdServlet")
 public class IdServlet extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;

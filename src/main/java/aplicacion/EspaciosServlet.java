@@ -15,7 +15,7 @@ import dominio.EspacioRepository;
 import dominio.Constantes.TYPE;
 import infraestructura.EspacioRepositoryPostgre;
 
-@WebServlet(value="/espacios", name="EspaciosServlet")
+@WebServlet(value="/api/espacios", name="EspaciosServlet")
 public class EspaciosServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
