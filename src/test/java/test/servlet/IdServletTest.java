@@ -1,6 +1,6 @@
 package test.servlet;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 
@@ -11,11 +11,11 @@ import org.junit.*;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import puertosyadaptadores.EspaciosServlet;
+import puertosyadaptadores.IdServlet;
 
-public class EspaciosServletTest {
+public class IdServletTest {
 	
-	private EspaciosServlet servlet;
+	private IdServlet servlet;
 	private MockHttpServletRequest req;
 	private MockHttpServletResponse resp;
 
@@ -25,24 +25,44 @@ public class EspaciosServletTest {
 
 	@Before
 	public void setUp() {
-		servlet = new EspaciosServlet();
+		servlet = new IdServlet();
 		req = new MockHttpServletRequest();
 		resp = new MockHttpServletResponse();
 	}
 
 	@Test
 	public void testOK() throws ServletException, IOException {
-		String tipo = "DESPACHO";
-		String planta = "0";
+		String id = "00.180";
 
-		req.addParameter("tipo", tipo);
-		req.addParameter("planta", planta);
-
+		req.addParameter("id", id);
+		
 		servlet.doGet(req, resp);
 
 		String respuesta = resp.getContentAsString();
 
 		assertTrue(resp.getStatus() == HttpServletResponse.SC_OK && respuesta != null && !respuesta.isEmpty());
+	}
+	
+	@Test
+	public void testIdFalsa() throws ServletException, IOException {
+		String id = "hola";
+
+		req.addParameter("id", id);
+		
+		servlet.doGet(req, resp);
+
+		assertTrue(resp.getStatus() == HttpServletResponse.SC_BAD_REQUEST);
+	}
+	
+	@Test
+	public void testIdNull() throws ServletException, IOException {
+		String id = null;
+
+		req.addParameter("id", id);
+		
+		servlet.doGet(req, resp);
+
+		assertTrue(resp.getStatus() == HttpServletResponse.SC_BAD_REQUEST);
 	}
 
 }

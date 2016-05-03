@@ -1,4 +1,4 @@
-package aplicacion;
+package puertosyadaptadores;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import dominio.Espacio;
 import dominio.EspacioRepository;
-import infraestructura.EspacioRepositoryPostgre;
 
 @WebServlet(value="/api/identificacion", name="IdServlet")
 public class IdServlet extends HttpServlet{
@@ -34,9 +33,9 @@ public class IdServlet extends HttpServlet{
 		resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		
 		/* Chequear parametros */
+		assert id!=null;
 		if(id != null){
 			Espacio espacio = repository.findById(id);
-			
 			if(espacio != null){
 				resp.setStatus(HttpServletResponse.SC_OK);
 				response = Espacio2Json.espacio2Json(espacio);
@@ -52,7 +51,6 @@ public class IdServlet extends HttpServlet{
 			out.print(response);
 			out.flush();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

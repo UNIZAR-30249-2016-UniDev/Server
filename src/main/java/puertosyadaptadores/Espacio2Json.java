@@ -1,4 +1,4 @@
-package aplicacion;
+package puertosyadaptadores;
 
 import dominio.Espacio;
 import dominio.Point;

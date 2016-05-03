@@ -1,4 +1,4 @@
-package aplicacion;
+package puertosyadaptadores;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,10 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import aplicacion.BuscaEspacio;
 import dominio.Espacio;
 import dominio.EspacioRepository;
-import dominio.Constantes.TYPE;
-import infraestructura.EspacioRepositoryPostgre;
 
 @WebServlet(value="/api/espacios", name="EspaciosServlet")
 public class EspaciosServlet extends HttpServlet {
@@ -22,45 +21,33 @@ public class EspaciosServlet extends HttpServlet {
 	private static final String REQ_ESPACIO = "tipo";
 	private static final String REQ_PLANTA = "planta";
 	private static EspacioRepository repository = new EspacioRepositoryPostgre();
-	
+
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		handleRequest(req, resp);
 	}
-	
+
 	private void handleRequest(HttpServletRequest req, HttpServletResponse resp) {
 		String response = null;
 		String tipo_espacio = null;
 		String strFloor = null;
-		int planta = -1;
-		
+
 		tipo_espacio = req.getParameter(REQ_ESPACIO);
 		strFloor = req.getParameter(REQ_PLANTA);
-		
+
 		resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-		
+
 
 		List<Espacio> lista = null;
-		
+
 		/* Chequear parametros */
 		if (strFloor != null && strFloor.matches("^\\d+$") && tipo_espacio != null) {
-			planta = Integer.parseInt(strFloor);
-			if (tipo_espacio.equals(TYPE.DESPACHO.toString())) {
-					lista = repository.findDespachos(planta);
-			}
-			else if (tipo_espacio.equals(TYPE.LAB.toString())) {
-					lista = repository.findLaboratorios(planta);	
-			}
-			else if (tipo_espacio.equals(TYPE.WC.toString())) {
-		        	lista = repository.findWcs(planta);	
-			}
-			else if (tipo_espacio.equals(TYPE.AULA.toString())) {
-		        	lista = repository.findAulas(planta);
-			}
+			lista = BuscaEspacio.buscarEspacio(Integer.parseInt(strFloor), tipo_espacio);
 		} else {
-				lista = repository.findAll();
+			lista = repository.findAll();
 		}
+		assert lista!=null;
 		if (lista != null) {
 			resp.setStatus(HttpServletResponse.SC_OK);
 			response = "{ \"espacios\" : [ ";
@@ -79,7 +66,6 @@ public class EspaciosServlet extends HttpServlet {
 			out.print(response);
 			out.flush();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

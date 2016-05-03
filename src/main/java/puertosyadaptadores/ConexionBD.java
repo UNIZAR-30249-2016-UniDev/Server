@@ -1,4 +1,4 @@
-package infraestructura;
+package puertosyadaptadores;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

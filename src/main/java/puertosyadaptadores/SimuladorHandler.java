@@ -1,4 +1,4 @@
-package aplicacion;
+package puertosyadaptadores;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -8,8 +8,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import aplicacion.SimuladorEspacio;
 import dominio.EspacioRepository;
-import infraestructura.EspacioRepositoryPostgre;
 
 @WebListener
 public class SimuladorHandler  implements ServletContextListener {

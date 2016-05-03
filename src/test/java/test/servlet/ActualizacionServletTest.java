@@ -11,11 +11,11 @@ import org.junit.*;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import puertosyadaptadores.EspaciosServlet;
+import puertosyadaptadores.ActualizacionServlet;
 
-public class EspaciosServletTest {
+public class ActualizacionServletTest {
 	
-	private EspaciosServlet servlet;
+	private ActualizacionServlet servlet;
 	private MockHttpServletRequest req;
 	private MockHttpServletResponse resp;
 
@@ -25,18 +25,18 @@ public class EspaciosServletTest {
 
 	@Before
 	public void setUp() {
-		servlet = new EspaciosServlet();
+		servlet = new ActualizacionServlet();
 		req = new MockHttpServletRequest();
 		resp = new MockHttpServletResponse();
 	}
 
 	@Test
 	public void testOK() throws ServletException, IOException {
-		String tipo = "DESPACHO";
-		String planta = "0";
+		String id = "00.180";
+		String temp = "26.0";
 
-		req.addParameter("tipo", tipo);
-		req.addParameter("planta", planta);
+		req.addParameter("id", id);
+		req.addParameter("temperatura_objetivo", temp);
 
 		servlet.doGet(req, resp);
 
