@@ -29,7 +29,7 @@ public class Espacio2Json {
 
 		String json = "{ ";
 		json += "\"id\":\"" + id + "\", ";
-		json += "\"localizacion\": [" + coordenadas.getX() + ", " + coordenadas.getY() + "], ";
+		json += "\"geometry\": { \"type\": \"Point\", \"coordinates\": [" + coordenadas.getX() + ", " + coordenadas.getY() + "] }, ";
 		json += "\"luz\":" + lucesOn + ", ";
 		json += "\"puertas\":" + puertasOpen + ", ";
 		json += "\"presencia\":" + presenciaOn + ", ";
