@@ -49,7 +49,7 @@ public class ActualizacionServlet extends HttpServlet {
 					puertas, strPresencia, presencia, temp, tempObj);
 			boolean actualizado = repository.updateById(espacio);*/
 			
-			if ((boolean) actualizado[1]) {
+			if ((Boolean) actualizado[1]) {
 				response = Espacio2Json.espacio2Json((Espacio) actualizado[0]);
 				resp.setStatus(HttpServletResponse.SC_OK);
 			}
