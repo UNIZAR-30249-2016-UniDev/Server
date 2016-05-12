@@ -30,7 +30,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	public List<Espacio> findDespachos(int floor) {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
-			String sql = "SELECT ID_UTC, ST_X(ST_TRANSFORM(the_geom, 4326)) AS LOCATIONX, ST_Y(ST_TRANSFORM(the_geom, 4326)) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
+			String sql = "SELECT ID_UTC, ST_X(ST_TRANSFORM(the_geom, 23030)) AS LOCATIONX, ST_Y(ST_TRANSFORM(the_geom, 23030)) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
 					+ " PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios WHERE ID_PLANTA = " + floor + " AND TIPO_DE_US = 17";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -55,7 +55,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	public List<Espacio> findLaboratorios(int floor) {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
-			String sql = "SELECT ID_UTC, ST_X(ST_TRANSFORM(the_geom, 4326)) AS LOCATIONX, ST_Y(ST_TRANSFORM(the_geom, 4326)) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
+			String sql = "SELECT ID_UTC, ST_X(ST_TRANSFORM(the_geom, 23030)) AS LOCATIONX, ST_Y(ST_TRANSFORM(the_geom, 23030)) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
 					+ " PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios WHERE ID_PLANTA = " + floor + " AND (TIPO_DE_US = 41 OR TIPO_DE_US = 44 OR TIPO_DE_US = 55)";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -80,7 +80,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	public List<Espacio> findWcs(int floor) {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
-			String sql = "SELECT ID_UTC, ST_X(ST_TRANSFORM(the_geom, 4326)) AS LOCATIONX, ST_Y(ST_TRANSFORM(the_geom, 4326)) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
+			String sql = "SELECT ID_UTC, ST_X(ST_TRANSFORM(the_geom, 23030)) AS LOCATIONX, ST_Y(ST_TRANSFORM(the_geom, 23030)) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
 					+ " PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios WHERE ID_PLANTA = " + floor + " AND (TIPO_DE_US = 7 OR TIPO_DE_US = 9)";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -105,7 +105,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	public List<Espacio> findAulas(int floor) {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
-			String sql = "SELECT ID_UTC, ST_X(ST_TRANSFORM(the_geom, 4326)) AS LOCATIONX, ST_Y(ST_TRANSFORM(the_geom, 4326)) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
+			String sql = "SELECT ID_UTC, ST_X(ST_TRANSFORM(the_geom, 23030)) AS LOCATIONX, ST_Y(ST_TRANSFORM(the_geom, 23030)) AS LOCATIONY, ID_EDIFICIO, ILUMINACION,"
 					+ " PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios WHERE ID_PLANTA = " + floor + " AND TIPO_DE_US = 6";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -130,7 +130,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	public Espacio findById(String id) {
 		Espacio espacio = null;
 		try {
-			String sql = "SELECT ID_UTC, TIPO_DE_US, ID_PLANTA, ST_X(ST_TRANSFORM(the_geom, 4326)) AS LOCATIONX, ST_Y(ST_TRANSFORM(the_geom, 4326)) AS LOCATIONY, ID_EDIFICIO,"
+			String sql = "SELECT ID_UTC, TIPO_DE_US, ID_PLANTA, ST_X(ST_TRANSFORM(the_geom, 23030)) AS LOCATIONX, ST_Y(ST_TRANSFORM(the_geom, 23030)) AS LOCATIONY, ID_EDIFICIO,"
 					+ " ILUMINACION, PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios WHERE ID_UTC = '" + id + "'";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -156,7 +156,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	public List<Espacio> findAll() {
 		List<Espacio> espacios = new LinkedList<Espacio>();
 		try {
-			String sql = "SELECT ID_UTC, TIPO_DE_US, ID_PLANTA, ST_X(ST_TRANSFORM(the_geom, 4326)) AS LOCATIONX, ST_Y(ST_TRANSFORM(the_geom, 4326)) AS LOCATIONY, ID_EDIFICIO,"
+			String sql = "SELECT ID_UTC, TIPO_DE_US, ID_PLANTA, ST_X(ST_TRANSFORM(the_geom, 23030)) AS LOCATIONX, ST_Y(ST_TRANSFORM(the_geom, 23030)) AS LOCATIONY, ID_EDIFICIO,"
 					+ " ILUMINACION, PUERTAS, PRESENCIA, TEMPERATURA, TEMPERATURAOBJETIVO FROM proyecto.espacios";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
