@@ -38,7 +38,7 @@ public class IdServlet extends HttpServlet{
 			Espacio espacio = repository.findById(id);
 			if(espacio != null){
 				resp.setStatus(HttpServletResponse.SC_OK);
-				response = Espacio2Json.espacio2Json(espacio);
+				response = espacio.toJSON();
 			}
 		}
 		setResponse(response, resp);
