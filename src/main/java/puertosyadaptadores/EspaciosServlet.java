@@ -52,7 +52,7 @@ public class EspaciosServlet extends HttpServlet {
 			resp.setStatus(HttpServletResponse.SC_OK);
 			response = "{ \"espacios\" : [ ";
 			for(Espacio espacio: lista) {
-				response += Espacio2Json.espacio2Json(espacio) + ",";
+				response += espacio.toJSON() + ",";
 			}
 			response = response.substring(0, response.length()-1) + "] }";
 		}

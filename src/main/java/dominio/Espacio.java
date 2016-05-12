@@ -203,4 +203,30 @@ public class Espacio extends BaseEntity {
 		temperatura.cambiarTemperaturaObjetivo(temperaturaObjetivo);
 	}
 
+	public String toJSON() {
+		/* atributos comunes que enviar */
+		String id = this.getID();
+
+		boolean lucesOn = this.lucesEncendidas();
+		boolean puertasOpen = this.puertasAbiertas();
+		boolean presenciaOn = this.presenciaEncendida();
+
+		Point coordenadas = this.localizacion().getPoint();
+		
+		Temperatura temp = this.temperatura();
+		Temperatura tempClimatizador = this.temperaturaObjetivo();
+
+		String json = "{ ";
+		json += "\"id\":\"" + id + "\", ";
+		json += "\"geometry\": { \"type\": \"Point\", \"coordinates\": [" + coordenadas.getX() + ", " + coordenadas.getY() + "] }, ";
+		json += "\"luz\":" + lucesOn + ", ";
+		json += "\"puertas\":" + puertasOpen + ", ";
+		json += "\"presencia\":" + presenciaOn + ", ";
+		json += "\"temperatura\":" + temp.getTemperature() + ", ";
+		json += "\"temperatura_objetivo\":" + tempClimatizador.getTemperature();
+
+		json += "}";
+		return json;
+	}
+
 }

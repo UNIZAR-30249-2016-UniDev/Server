@@ -50,7 +50,7 @@ public class ActualizacionServlet extends HttpServlet {
 			boolean actualizado = repository.updateById(espacio);*/
 			
 			if ((Boolean) actualizado[1]) {
-				response = Espacio2Json.espacio2Json((Espacio) actualizado[0]);
+				response = ((Espacio) actualizado[0]).toJSON();
 				resp.setStatus(HttpServletResponse.SC_OK);
 			}
 		}
