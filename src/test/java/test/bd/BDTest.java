@@ -103,24 +103,19 @@ public class BDTest {
 	 */
 	@Test
 	public void testUpdate() {
+		double newTemp = 25.0;
 		List<Espacio> espacios = prueba.findAll();
 		
 		String buscar = espacios.get(0).getID();
-		espacios.get(0).temperaturaObjetivo(new Temperatura(25.0));
+		espacios.get(0).temperaturaObjetivo(new Temperatura(newTemp));
 		
 		boolean res = prueba.update(espacios);
 		if(!res){
 			assertTrue("Update ha fallado", false);
 		}
 		
-		espacios = prueba.findAll();
-		Espacio temp = null;
-		for (Espacio espacio : espacios) {
-			if (espacio.getID().equals(buscar)) {
-				temp = espacio;
-			}
-		}
-		assertEquals("Temperatura objetivo no actualizada correctamente", temp.temperaturaObjetivo().getTemperature(), 25.0);
+		Espacio temp = prueba.findById(buscar);
+		assertEquals("Temperatura objetivo no actualizada correctamente", temp.temperaturaObjetivo().getTemperature(), newTemp);
 	}
 
 	/**

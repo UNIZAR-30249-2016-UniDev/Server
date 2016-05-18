@@ -183,19 +183,10 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 		boolean returned = false;
 		try {
 			conn.setAutoCommit(false);
-			Statement stmt = conn.createStatement();
 			for (Espacio espacio : espacios) {
-				String sql = "UPDATE proyecto.espacios SET ILUMINACION ='"+getString(espacio.lucesEncendidas())+"',"
-						+ " PUERTAS ='"+getString(espacio.puertasAbiertas())+"',"
-						+ " PRESENCIA ='"+getString(espacio.presenciaEncendida())+"',"
-						+ " TEMPERATURA ='"+espacio.temperatura().getTemperature()+"',"
-						+ " TEMPERATURAOBJETIVO ='"+espacio.temperaturaObjetivo().getTemperature()+"'"
-						+ " WHERE ID_UTC ='"+espacio.getID()+"'";
-				stmt.addBatch(sql);
+				updateById(espacio);
 			}
-			stmt.executeBatch();
 			conn.commit();
-			stmt.close();
 			returned = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
