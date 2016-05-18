@@ -21,7 +21,7 @@ public class BDTest {
 	/**
 	 * Instancia el repositorio
 	 */
-	@Before
+	@BeforeClass
 	public void setUp() {
 		prueba = new EspacioRepositoryPostgre();
 	}

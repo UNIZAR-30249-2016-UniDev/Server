@@ -25,9 +25,16 @@ public class ActualizacionServletTest {
 	/**
 	 * Setup para los tests del servlet
 	 */
-	@Before
+	@BeforeClass
 	public void setUp() {
 		servlet = new ActualizacionServlet();
+	}
+	
+	/**
+	 * Setup adicional para los tests del servlet
+	 */
+	@Before
+	public void setUpRequestResponse(){
 		req = new MockHttpServletRequest();
 		resp = new MockHttpServletResponse();
 	}
