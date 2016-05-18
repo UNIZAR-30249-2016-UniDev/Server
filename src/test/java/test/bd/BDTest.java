@@ -108,7 +108,10 @@ public class BDTest {
 		String buscar = espacios.get(0).getID();
 		espacios.get(0).temperaturaObjetivo(new Temperatura(25.0));
 		
-		prueba.update(espacios);
+		boolean res = prueba.update(espacios);
+		if(!res){
+			assertTrue("Update ha fallado", false);
+		}
 		
 		espacios = prueba.findAll();
 		Espacio temp = null;
