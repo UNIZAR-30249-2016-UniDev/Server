@@ -14,11 +14,25 @@ public class ActualizaEspacio {
 			double temperatura, double calefaccion) {
 		Object[] tabla = new Object[2];
 		Espacio espacio = repository.findById(id);
-		espacio = actualizaEspacio(espacio, strLuz, luz, strPuertas,
-				puertas, strPresencia, presencia, temperatura, calefaccion);
-		boolean actualizado = repository.updateById(espacio);
-		tabla[0] = espacio;
-		tabla[1] = actualizado;
+		
+		try{
+			assert espacio != null;
+		}
+		catch(AssertionError ae){
+			System.err.println(ae.getMessage());
+		}
+		
+		if(espacio != null){
+			espacio = actualizaEspacio(espacio, strLuz, luz, strPuertas,
+					puertas, strPresencia, presencia, temperatura, calefaccion);
+			boolean actualizado = repository.updateById(espacio);
+			tabla[0] = espacio;
+			tabla[1] = actualizado;
+		}
+		else{
+			tabla[0] = null;
+			tabla[1] = false;
+		}
 		return tabla;
 	}
 	

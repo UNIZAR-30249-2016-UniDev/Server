@@ -78,10 +78,7 @@ public class ActualizacionServletTest {
 
 		servlet.doGet(req, resp);
 
-		String respuesta = resp.getContentAsString();
-
-		assertTrue(resp.getStatus() == HttpServletResponse.SC_OK
-				&& respuesta != null && !respuesta.isEmpty());
+		assertTrue(resp.getStatus() == HttpServletResponse.SC_BAD_REQUEST);
 	}
 
 	/**
