@@ -2,22 +2,32 @@ package dominio;
 
 import dominio.Constantes.TYPE;
 
+/**
+ * Servicio de un genero u otro
+ */
 public class Wc extends Espacio {
 
-	public enum GENDER{
+	public enum GENDER {
 		CHICAS, CHICOS
 	};
-	
+
 	private GENDER genero;
-	
+
 	/**
 	 * Constructor del servicio (WC)
-	 * @param location localizacion del espacio
-	 * @param luz sensor-actuador del espacio
-	 * @param puertas sensor-actuador de puertas
-	 * @param presencia sensor-actuador de presencia 
-	 * @param temperatura sensor-ctuador del espacio
-	 * @param genero servicio de hombres o mujeres
+	 * 
+	 * @param location
+	 *            localizacion del espacio
+	 * @param luz
+	 *            sensor-actuador del espacio
+	 * @param puertas
+	 *            sensor-actuador de puertas
+	 * @param presencia
+	 *            sensor-actuador de presencia
+	 * @param temperatura
+	 *            sensor-ctuador del espacio
+	 * @param genero
+	 *            servicio de hombres o mujeres
 	 */
 	public Wc(Location location, SensorActuadorBinario luz,
 			SensorActuadorBinario puertas, SensorActuadorBinario presencia,
@@ -25,16 +35,24 @@ public class Wc extends Espacio {
 		super(location, TYPE.WC, luz, puertas, presencia, temperatura);
 		this.genero = genero;
 	}
-	
+
 	/**
 	 * Constructor del servicio (WC)
-	 * @param id identificador del espacio personaliza
-	 * @param location localizacion del espacio
-	 * @param luz sensor-actuador del espacio
-	 * @param puertas sensor-actuador de puertas
-	 * @param presencia sensor-actuador de presencia 
-	 * @param temperatura sensor-ctuador del espacio
-	 * @param genero servicio de hombres o mujeres
+	 * 
+	 * @param id
+	 *            identificador del espacio personaliza
+	 * @param location
+	 *            localizacion del espacio
+	 * @param luz
+	 *            sensor-actuador del espacio
+	 * @param puertas
+	 *            sensor-actuador de puertas
+	 * @param presencia
+	 *            sensor-actuador de presencia
+	 * @param temperatura
+	 *            sensor-ctuador del espacio
+	 * @param genero
+	 *            servicio de hombres o mujeres
 	 */
 	public Wc(String id, Location location, SensorActuadorBinario luz,
 			SensorActuadorBinario puertas, SensorActuadorBinario presencia,
@@ -42,18 +60,18 @@ public class Wc extends Espacio {
 		super(id, location, TYPE.WC, luz, puertas, presencia, temperatura);
 		this.genero = genero;
 	}
-	
+
 	/**
 	 * @return true si el servicio es de mujeres
 	 */
-	public boolean esDeChicas(){
+	public boolean esDeChicas() {
 		return this.genero == GENDER.CHICAS;
 	}
-	
+
 	/**
 	 * @return true si el servicio es de hombres
 	 */
-	public boolean esDeChicos(){
+	public boolean esDeChicos() {
 		return this.genero == GENDER.CHICOS;
 	}
 }

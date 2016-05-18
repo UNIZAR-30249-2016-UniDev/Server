@@ -2,6 +2,9 @@ package dominio;
 
 import dominio.Constantes.TYPE;
 
+/**
+ * Espacio con luz, puertas, presencia y temperatura
+ */
 public class Espacio extends BaseEntity {
 
 	private Location location;
@@ -14,12 +17,19 @@ public class Espacio extends BaseEntity {
 
 	/**
 	 * Constructor de espacios
-	 * @param location localizacion del espacio
-	 * @param type tipo de espacio
-	 * @param luz sensor-actuador de luz
-	 * @param puertas sensor-actuador de puertas
-	 * @param presencia sensor-actuador de presencia
-	 * @param temperatura sensor-actuador de temperatura
+	 * 
+	 * @param location
+	 *            localizacion del espacio
+	 * @param type
+	 *            tipo de espacio
+	 * @param luz
+	 *            sensor-actuador de luz
+	 * @param puertas
+	 *            sensor-actuador de puertas
+	 * @param presencia
+	 *            sensor-actuador de presencia
+	 * @param temperatura
+	 *            sensor-actuador de temperatura
 	 */
 	public Espacio(Location location, TYPE type, SensorActuadorBinario luz,
 			SensorActuadorBinario puertas, SensorActuadorBinario presencia,
@@ -31,19 +41,28 @@ public class Espacio extends BaseEntity {
 		this.presencia = presencia;
 		this.temperatura = temperatura;
 	}
-	
+
 	/**
 	 * Constructor de espacios
-	 * @param id identificador del espacio personalizado
-	 * @param location localizacion del espacio
-	 * @param type tipo de espacio
-	 * @param luz sensor-actuador de luz 
-	 * @param puertas sensor-actuador de puertas
-	 * @param presencia sensor-actuador de presencia
-	 * @param temperatura sensor-actuador de temperatura
+	 * 
+	 * @param id
+	 *            identificador del espacio personalizado
+	 * @param location
+	 *            localizacion del espacio
+	 * @param type
+	 *            tipo de espacio
+	 * @param luz
+	 *            sensor-actuador de luz
+	 * @param puertas
+	 *            sensor-actuador de puertas
+	 * @param presencia
+	 *            sensor-actuador de presencia
+	 * @param temperatura
+	 *            sensor-actuador de temperatura
 	 */
-	public Espacio(String id, Location location, TYPE type, SensorActuadorBinario luz,
-			SensorActuadorBinario puertas, SensorActuadorBinario presencia,
+	public Espacio(String id, Location location, TYPE type,
+			SensorActuadorBinario luz, SensorActuadorBinario puertas,
+			SensorActuadorBinario presencia,
 			SensorActuadorTemperatura temperatura) {
 		super(id);
 		this.location = location;
@@ -89,120 +108,154 @@ public class Espacio extends BaseEntity {
 		return this.type == TYPE.DESPACHO;
 	}
 
-	public boolean lucesEncendidas(){
+	/**
+	 * @return true si las luces estan encendidas, false en caso contrario
+	 */
+	public boolean lucesEncendidas() {
 		return luz.estaEncendido();
 	}
-	
-	public boolean lucesApagadas(){
+
+	/**
+	 * @return true si las luces estan apagadas, false en caso contrario
+	 */
+	public boolean lucesApagadas() {
 		return luz.estaApagado();
 	}
-	
+
 	/**
-	 * @return true si ha encendido las luces del espacio, false en caso contrario
+	 * @return true si ha encendido las luces del espacio, false en caso
+	 *         contrario
 	 */
-	public boolean encenderLuces(){
-		if (!luz.estaEncendido()) {
+	public boolean encenderLuces() {
+		if (ServicioEncendidoLuces.sePuedeEncender(this)) {
 			luz.actuar();
 		}
 		return luz.estaEncendido();
 	}
-	
+
 	/**
 	 * @return true si ha apagado las luces del espacio, false en caso contrario
 	 */
-	public boolean apagarLuces(){
-		if (!luz.estaApagado()) {
+	public boolean apagarLuces() {
+		if (ServicioApagadoLuces.sePuedeApagar(this)) {
 			luz.actuar();
 		}
 		return luz.estaApagado();
 	}
-	
-	public boolean puertasAbiertas(){
+
+	/**
+	 * @return true si las puertas estan abiertas, false en caso contrario
+	 */
+	public boolean puertasAbiertas() {
 		return puertas.estaEncendido();
 	}
-	
-	public boolean puertasCerradas(){
+
+	/**
+	 * @return true si las puertas estan cerradas, false en caso contrario
+	 */
+	public boolean puertasCerradas() {
 		return puertas.estaApagado();
 	}
-	
+
 	/**
-	 * @return true si han abierto las puertas del espacio, false en caso contrario
+	 * @return true si han abierto las puertas del espacio, false en caso
+	 *         contrario
 	 */
-	public boolean abrirPuertas(){
+	public boolean abrirPuertas() {
 		if (!puertas.estaEncendido()) {
 			puertas.actuar();
 		}
 		return puertas.estaEncendido();
 	}
-	
+
 	/**
-	 * @return true si han cerrado las puertas del espacio, false en caso contrario
+	 * @return true si han cerrado las puertas del espacio, false en caso
+	 *         contrario
 	 */
-	public boolean cerrarPuertas(){
+	public boolean cerrarPuertas() {
 		if (!puertas.estaApagado()) {
 			puertas.actuar();
 		}
 		return puertas.estaApagado();
 	}
-	
-	public boolean presenciaEncendida(){
+
+	/**
+	 * @return true si el sensor de presencia esta encendido, false en caso
+	 *         contrario
+	 */
+	public boolean presenciaEncendida() {
 		return presencia.estaEncendido();
 	}
-	
-	public boolean presenciaApagada(){
+
+	/**
+	 * @return true si el sensor de presencia esta apagado, false en caso
+	 *         contrario
+	 */
+	public boolean presenciaApagada() {
 		return presencia.estaApagado();
 	}
-	
+
 	/**
-	 * @return true si ha encendido la presencia del espacio, false en caso contrario
+	 * @return true si ha encendido la presencia del espacio, false en caso
+	 *         contrario
 	 */
-	public boolean encenderPresencia(){
+	public boolean encenderPresencia() {
 		if (!presencia.estaEncendido()) {
 			presencia.actuar();
 		}
 		return presencia.estaEncendido();
 	}
-	
+
 	/**
-	 * @return true si ha apagado la presencia del espacio, false en caso contrario
+	 * @return true si ha apagado la presencia del espacio, false en caso
+	 *         contrario
 	 */
-	public boolean apagarPresencia(){
+	public boolean apagarPresencia() {
 		if (!presencia.estaApagado()) {
 			presencia.actuar();
 		}
 		return presencia.estaApagado();
 	}
-	
+
 	/**
 	 * @return temperatura del espacio
 	 */
-	public Temperatura temperatura(){
+	public Temperatura temperatura() {
 		return temperatura.temperatura();
 	}
-	
+
 	/**
 	 * Cambia la temperatura del espacio
-	 * @param temp temperatura ambiente actual
+	 * 
+	 * @param temp
+	 *            temperatura ambiente actual
 	 */
-	public void cambiarTemperatura(Temperatura temp){
+	public void cambiarTemperatura(Temperatura temp) {
 		temperatura.cambiarTemperatura(temp);
 	}
-	
+
 	/**
 	 * @return temperatura objetivo del climatizador
 	 */
-	public Temperatura temperaturaObjetivo(){
+	public Temperatura temperaturaObjetivo() {
 		return temperatura.temperaturaObjetivo();
 	}
-	
+
 	/**
 	 * Cambia la temperatura objetivo del espacio
-	 * @param temperaturaObjetivo nueva temperatura objetivo del climatizador
+	 * 
+	 * @param temperaturaObjetivo
+	 *            nueva temperatura objetivo del climatizador
 	 */
-	public void temperaturaObjetivo(Temperatura temperaturaObjetivo){
-		temperatura.cambiarTemperaturaObjetivo(temperaturaObjetivo);
+	public void temperaturaObjetivo(Temperatura temperaturaObjetivo) {
+		if(ServicioCambioTemperaturaObjetivo.sePuedeCambiar(this, temperaturaObjetivo)){
+			temperatura.cambiarTemperaturaObjetivo(temperaturaObjetivo);
+		}
 	}
 
+	/**
+	 * @return JSON del espacio
+	 */
 	public String toJSON() {
 		/* atributos comunes que enviar */
 		String id = this.getID();
@@ -212,13 +265,14 @@ public class Espacio extends BaseEntity {
 		boolean presenciaOn = this.presenciaEncendida();
 
 		Point coordenadas = this.localizacion().getPoint();
-		
+
 		Temperatura temp = this.temperatura();
 		Temperatura tempClimatizador = this.temperaturaObjetivo();
 
 		String json = "{ ";
 		json += "\"id\":\"" + id + "\", ";
-		json += "\"geometry\": { \"type\": \"Point\", \"coordinates\": [" + coordenadas.getX() + ", " + coordenadas.getY() + "] }, ";
+		json += "\"geometry\": { \"type\": \"Point\", \"coordinates\": ["
+				+ coordenadas.getX() + ", " + coordenadas.getY() + "] }, ";
 		json += "\"luz\":" + lucesOn + ", ";
 		json += "\"puertas\":" + puertasOpen + ", ";
 		json += "\"presencia\":" + presenciaOn + ", ";
