@@ -44,10 +44,6 @@ public class ActualizacionServlet extends HttpServlet {
 		if(peticionCorrecta(id,strLuz,strPuertas,strPresencia,strTemp,strTempObj)) {
 			Object[] actualizado = ActualizaEspacio.actualizarEspacio(id,strLuz, luz, strPuertas,
 					puertas, strPresencia, presencia, temp, tempObj);
-			/*Espacio espacio = repository.findById(id);
-			espacio = actualizarEspacio(espacio, strLuz, luz, strPuertas,
-					puertas, strPresencia, presencia, temp, tempObj);
-			boolean actualizado = repository.updateById(espacio);*/
 			
 			if ((Boolean) actualizado[1]) {
 				response = ((Espacio) actualizado[0]).toJSON();
