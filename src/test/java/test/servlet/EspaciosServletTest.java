@@ -81,7 +81,7 @@ public class EspaciosServletTest {
 	}
 	
 	/**
-	 * Comprueba que se pproduce un error al buscar sin parametros
+	 * Comprueba que se produce un error al buscar sin parametros
 	 * 
 	 * @throws ServletException
 	 * @throws IOException
@@ -90,7 +90,10 @@ public class EspaciosServletTest {
 	public void testNull() throws ServletException, IOException {
 		servlet.doGet(req, resp);
 
-		assertTrue(resp.getStatus() == HttpServletResponse.SC_BAD_REQUEST);
+		String respuesta = resp.getContentAsString();
+
+		assertTrue(resp.getStatus() == HttpServletResponse.SC_OK
+				&& respuesta != null && !respuesta.isEmpty());
 	}
 
 }

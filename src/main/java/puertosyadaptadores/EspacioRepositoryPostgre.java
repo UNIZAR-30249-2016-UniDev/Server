@@ -202,6 +202,7 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	
 	@Override
 	public boolean updateById(Espacio espacio) {
+		int nou = 0;
 		String sql = "UPDATE proyecto.espacios SET ILUMINACION ='"+getString(espacio.lucesEncendidas())+"',"
 				+ " PUERTAS ='"+getString(espacio.puertasAbiertas())+"',"
 				+ " PRESENCIA ='"+getString(espacio.presenciaEncendida())+"',"
@@ -210,14 +211,14 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 				+ " WHERE ID_UTC ='"+espacio.getID()+"'";
 		try {
 			Statement stmt = conn.createStatement();
-			stmt.executeUpdate(sql);
+			nou = stmt.executeUpdate(sql);
 			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Error en actualizar espacio por id=" + espacio.getID());
 			return false;
 		}
-		return true;
+		return nou > 0;
 	}
 
 	private STATE getState(String estado) {
