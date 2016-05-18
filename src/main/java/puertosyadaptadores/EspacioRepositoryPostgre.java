@@ -194,6 +194,8 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 				stmt.addBatch(sql);
 			}
 			stmt.executeBatch();
+			conn.commit();
+			stmt.close();
 			returned = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
