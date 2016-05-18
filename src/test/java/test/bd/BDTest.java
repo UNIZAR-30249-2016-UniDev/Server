@@ -120,7 +120,7 @@ public class BDTest {
 				temp = espacio;
 			}
 		}
-		assertEquals(temp.temperaturaObjetivo().getTemperature(), 25.0);
+		assertEquals("Temperatura objetivo no actualizada correctamente", temp.temperaturaObjetivo().getTemperature(), 25.0);
 	}
 
 	/**
