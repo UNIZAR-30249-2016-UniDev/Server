@@ -103,7 +103,7 @@ public class BDTest {
 	 */
 	@Test
 	public void testUpdate() {
-		double newTemp = 25;
+		double newTemp = 25.0;
 		List<Espacio> espacios = prueba.findAll();
 		
 		String buscar = espacios.get(0).getID();
@@ -124,11 +124,12 @@ public class BDTest {
 	 */
 	@Test
 	public void testUpdateById() {
+		double newTemp = 25.0;
 		Espacio espacio = prueba.findById("00.180");
-		espacio.temperaturaObjetivo(new Temperatura(25));
+		espacio.temperaturaObjetivo(new Temperatura(newTemp));
 		prueba.updateById(espacio);
 		espacio = prueba.findById("00.180");
 		Temperatura temp = espacio.temperaturaObjetivo();
-		assertEquals(temp.getTemperature(), 25);
+		assertEquals(temp.getTemperature(), newTemp);
 	}
 }
