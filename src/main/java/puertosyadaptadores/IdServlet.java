@@ -33,7 +33,12 @@ public class IdServlet extends HttpServlet{
 		resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		
 		/* Chequear parametros */
-		assert id!=null;
+		try{
+			assert id!=null;
+		}
+		catch(AssertionError ae){
+			setResponse(response, resp);
+		}
 		if(id != null){
 			Espacio espacio = repository.findById(id);
 			if(espacio != null){
