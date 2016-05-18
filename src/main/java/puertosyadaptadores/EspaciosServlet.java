@@ -47,7 +47,13 @@ public class EspaciosServlet extends HttpServlet {
 		} else {
 			lista = repository.findAll();
 		}
-		assert lista!=null;
+		
+		try{
+			assert lista!=null;
+		}
+		catch(AssertionError ae){
+			System.err.println(ae.getMessage());
+		}
 		if (lista != null) {
 			resp.setStatus(HttpServletResponse.SC_OK);
 			response = "{ \"espacios\" : [ ";

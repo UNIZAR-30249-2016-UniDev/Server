@@ -37,7 +37,7 @@ public class IdServlet extends HttpServlet{
 			assert id!=null;
 		}
 		catch(AssertionError ae){
-			setResponse(response, resp);
+			System.err.println(ae.getMessage());
 		}
 		if(id != null){
 			Espacio espacio = repository.findById(id);

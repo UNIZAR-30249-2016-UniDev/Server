@@ -70,7 +70,13 @@ public class ActualizacionServlet extends HttpServlet {
 	
 	private boolean peticionCorrecta(String id,String strLuz,
 			String strPuertas,String strPresencia,String strTemp,String strTempObj) {
-		assert id!=null;
+		try{
+			assert id!=null;
+		}
+		catch(AssertionError ae){
+			System.err.println(ae.getMessage());
+		}
+		
 		if (id != null) {
 			if (strLuz != null) {
 				luz = Boolean.valueOf(strLuz);

@@ -60,5 +60,37 @@ public class EspaciosServletTest {
 		assertTrue(resp.getStatus() == HttpServletResponse.SC_OK
 				&& respuesta != null && !respuesta.isEmpty());
 	}
+	
+	/**
+	 * Comprueba que se produce un error al buscar con parametros incorrectos
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	@Test
+	public void testFalso() throws ServletException, IOException {
+		String tipo = "hola";
+		String planta = "100";
+
+		req.addParameter("tipo", tipo);
+		req.addParameter("planta", planta);
+
+		servlet.doGet(req, resp);
+
+		assertTrue(resp.getStatus() == HttpServletResponse.SC_BAD_REQUEST);
+	}
+	
+	/**
+	 * Comprueba que se pproduce un error al buscar sin parametros
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	@Test
+	public void testNull() throws ServletException, IOException {
+		servlet.doGet(req, resp);
+
+		assertTrue(resp.getStatus() == HttpServletResponse.SC_BAD_REQUEST);
+	}
 
 }
