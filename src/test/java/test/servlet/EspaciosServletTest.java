@@ -13,8 +13,11 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import puertosyadaptadores.EspaciosServlet;
 
+/**
+ * Tests contra el servlet de espacios
+ */
 public class EspaciosServletTest {
-	
+
 	private EspaciosServlet servlet;
 	private MockHttpServletRequest req;
 	private MockHttpServletResponse resp;
@@ -22,7 +25,6 @@ public class EspaciosServletTest {
 	/**
 	 * Setup para los tests del servlet
 	 */
-
 	@Before
 	public void setUp() {
 		servlet = new EspaciosServlet();
@@ -30,6 +32,12 @@ public class EspaciosServletTest {
 		resp = new MockHttpServletResponse();
 	}
 
+	/**
+	 * Comprueba que se puede buscar espacios con los parametros tipo y planta
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test
 	public void testOK() throws ServletException, IOException {
 		String tipo = "DESPACHO";
@@ -42,7 +50,8 @@ public class EspaciosServletTest {
 
 		String respuesta = resp.getContentAsString();
 
-		assertTrue(resp.getStatus() == HttpServletResponse.SC_OK && respuesta != null && !respuesta.isEmpty());
+		assertTrue(resp.getStatus() == HttpServletResponse.SC_OK
+				&& respuesta != null && !respuesta.isEmpty());
 	}
 
 }

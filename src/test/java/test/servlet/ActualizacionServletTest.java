@@ -13,8 +13,11 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import puertosyadaptadores.ActualizacionServlet;
 
+/**
+ * Tests contra el servlet de actualizacion
+ */
 public class ActualizacionServletTest {
-	
+
 	private ActualizacionServlet servlet;
 	private MockHttpServletRequest req;
 	private MockHttpServletResponse resp;
@@ -22,7 +25,6 @@ public class ActualizacionServletTest {
 	/**
 	 * Setup para los tests del servlet
 	 */
-
 	@Before
 	public void setUp() {
 		servlet = new ActualizacionServlet();
@@ -30,6 +32,12 @@ public class ActualizacionServletTest {
 		resp = new MockHttpServletResponse();
 	}
 
+	/**
+	 * Comprueba que la actualizacion de un espacio funciona correctamente
+	 * 
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	@Test
 	public void testOK() throws ServletException, IOException {
 		String id = "00.180";
@@ -42,7 +50,8 @@ public class ActualizacionServletTest {
 
 		String respuesta = resp.getContentAsString();
 
-		assertTrue(resp.getStatus() == HttpServletResponse.SC_OK && respuesta != null && !respuesta.isEmpty());
+		assertTrue(resp.getStatus() == HttpServletResponse.SC_OK
+				&& respuesta != null && !respuesta.isEmpty());
 	}
 
 }
