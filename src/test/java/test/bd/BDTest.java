@@ -104,9 +104,12 @@ public class BDTest {
 	@Test
 	public void testUpdate() {
 		List<Espacio> espacios = prueba.findAll();
+		
 		String buscar = espacios.get(0).getID();
 		espacios.get(0).temperaturaObjetivo(new Temperatura(25.0));
+		
 		prueba.update(espacios);
+		
 		espacios = prueba.findAll();
 		Espacio temp = null;
 		for (Espacio espacio : espacios) {

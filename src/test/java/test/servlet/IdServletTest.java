@@ -80,10 +80,6 @@ public class IdServletTest {
 	 */
 	@Test
 	public void testIdNull() throws ServletException, IOException {
-		String id = null;
-
-		req.addParameter("id", id);
-
 		servlet.doGet(req, resp);
 
 		assertTrue(resp.getStatus() == HttpServletResponse.SC_BAD_REQUEST);
