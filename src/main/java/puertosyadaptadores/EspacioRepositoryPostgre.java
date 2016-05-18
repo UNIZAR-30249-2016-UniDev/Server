@@ -179,25 +179,35 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	}
 	
 	@Override
-	public boolean update(List<Espacio> espacios) {			
-		for (Espacio espacio : espacios) {
-			String sql = "UPDATE proyecto.espacios SET ILUMINACION ='"+getString(espacio.lucesEncendidas())+"',"
-					+ " PUERTAS ='"+getString(espacio.puertasAbiertas())+"',"
-					+ " PRESENCIA ='"+getString(espacio.presenciaEncendida())+"',"
-					+ " TEMPERATURA ='"+espacio.temperatura().getTemperature()+"',"
-					+ " TEMPERATURAOBJETIVO ='"+espacio.temperaturaObjetivo().getTemperature()+"'"
-					+ " WHERE ID_UTC ='"+espacio.getID()+"'";	
+	public boolean update(List<Espacio> espacios) {
+		boolean returned = false;
+		try {
+			conn.setAutoCommit(false);
+			Statement stmt = conn.createStatement();
+			for (Espacio espacio : espacios) {
+				String sql = "UPDATE proyecto.espacios SET ILUMINACION ='"+getString(espacio.lucesEncendidas())+"',"
+						+ " PUERTAS ='"+getString(espacio.puertasAbiertas())+"',"
+						+ " PRESENCIA ='"+getString(espacio.presenciaEncendida())+"',"
+						+ " TEMPERATURA ='"+espacio.temperatura().getTemperature()+"',"
+						+ " TEMPERATURAOBJETIVO ='"+espacio.temperaturaObjetivo().getTemperature()+"'"
+						+ " WHERE ID_UTC ='"+espacio.getID()+"'";
+				stmt.addBatch(sql);
+			}
+			stmt.executeBatch();
+			returned = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error en actualizar espacios");
+			returned = false;
+		}
+		finally{
 			try {
-				Statement stmt = conn.createStatement();
-				stmt.executeUpdate(sql);
-				stmt.close();
+				conn.setAutoCommit(true);
 			} catch (SQLException e) {
 				e.printStackTrace();
-				System.out.println("Error en actualizar espacios");
-				return false;
 			}
 		}
-		return true;
+		return returned;
 	}
 	
 	@Override
