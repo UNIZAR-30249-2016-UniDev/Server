@@ -16,13 +16,13 @@ import puertosyadaptadores.EspacioRepositoryPostgre;
  */
 public class BDTest {
 
-	EspacioRepository prueba;
+	static EspacioRepository prueba;
 
 	/**
 	 * Instancia el repositorio
 	 */
 	@BeforeClass
-	public void setUp() {
+	public static void setUp() {
 		prueba = new EspacioRepositoryPostgre();
 	}
 

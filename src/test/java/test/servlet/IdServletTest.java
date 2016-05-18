@@ -18,7 +18,7 @@ import puertosyadaptadores.IdServlet;
  */
 public class IdServletTest {
 
-	private IdServlet servlet;
+	private static IdServlet servlet;
 	private MockHttpServletRequest req;
 	private MockHttpServletResponse resp;
 
@@ -26,7 +26,7 @@ public class IdServletTest {
 	 * Setup para los tests del servlet
 	 */
 	@BeforeClass
-	public void setUp() {
+	public static void setUp() {
 		servlet = new IdServlet();
 	}
 	

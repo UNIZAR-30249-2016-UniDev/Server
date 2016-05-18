@@ -18,7 +18,7 @@ import puertosyadaptadores.ActualizacionServlet;
  */
 public class ActualizacionServletTest {
 
-	private ActualizacionServlet servlet;
+	private static ActualizacionServlet servlet;
 	private MockHttpServletRequest req;
 	private MockHttpServletResponse resp;
 
@@ -26,7 +26,7 @@ public class ActualizacionServletTest {
 	 * Setup para los tests del servlet
 	 */
 	@BeforeClass
-	public void setUp() {
+	public static void setUp() {
 		servlet = new ActualizacionServlet();
 	}
 	

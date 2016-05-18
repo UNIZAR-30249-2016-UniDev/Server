@@ -18,7 +18,7 @@ import puertosyadaptadores.EspaciosServlet;
  */
 public class EspaciosServletTest {
 
-	private EspaciosServlet servlet;
+	private static EspaciosServlet servlet;
 	private MockHttpServletRequest req;
 	private MockHttpServletResponse resp;
 
@@ -26,7 +26,7 @@ public class EspaciosServletTest {
 	 * Setup para los tests del servlet
 	 */
 	@BeforeClass
-	public void setUp() {
+	public static void setUp() {
 		servlet = new EspaciosServlet();
 	}
 	
