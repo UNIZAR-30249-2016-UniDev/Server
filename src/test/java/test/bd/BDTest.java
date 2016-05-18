@@ -125,9 +125,15 @@ public class BDTest {
 	@Test
 	public void testUpdateById() {
 		double newTemp = 25.0;
+		
 		Espacio espacio = prueba.findById("00.180");
 		espacio.temperaturaObjetivo(new Temperatura(newTemp));
-		prueba.updateById(espacio);
+		
+		boolean res = prueba.updateById(espacio);
+		if(!res){
+			assertTrue("Update ha fallado", false);
+		}
+		
 		espacio = prueba.findById("00.180");
 		Temperatura temp = espacio.temperaturaObjetivo();
 		assertEquals(temp.getTemperature(), newTemp);

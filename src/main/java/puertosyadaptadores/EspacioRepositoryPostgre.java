@@ -180,25 +180,9 @@ public class EspacioRepositoryPostgre extends EspacioRepository {
 	
 	@Override
 	public boolean update(List<Espacio> espacios) {
-		boolean returned = false;
-		try {
-			conn.setAutoCommit(false);
-			for (Espacio espacio : espacios) {
-				updateById(espacio);
-			}
-			conn.commit();
-			returned = true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("Error en actualizar espacios");
-			returned = false;
-		}
-		finally{
-			try {
-				conn.setAutoCommit(true);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+		boolean returned = true;
+		for (Espacio espacio : espacios) {
+			returned = returned && updateById(espacio);
 		}
 		return returned;
 	}
