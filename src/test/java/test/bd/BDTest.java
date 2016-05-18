@@ -1,15 +1,18 @@
 package test.bd;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.*;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
+import puertosyadaptadores.EspacioRepositoryPostgre;
 import dominio.Espacio;
 import dominio.EspacioRepository;
 import dominio.Temperatura;
-import puertosyadaptadores.EspacioRepositoryPostgre;
 
 /**
  * Tests contra el repositorio de espacios
@@ -106,8 +109,12 @@ public class BDTest {
 		double newTemp = 25.0;
 		List<Espacio> espacios = prueba.findAll();
 		
-		String buscar = espacios.get(0).getID();
-		espacios.get(0).temperaturaObjetivo(new Temperatura(newTemp));
+		Espacio espacio = espacios.get(0);
+		
+		String buscar = espacio.getID();
+		espacio.temperaturaObjetivo(new Temperatura(newTemp));
+		espacios = new ArrayList<Espacio>();
+		espacios.add(espacio);
 		
 		boolean res = prueba.update(espacios);
 		if(!res){
