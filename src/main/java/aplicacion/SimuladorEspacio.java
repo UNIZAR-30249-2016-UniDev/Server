@@ -7,8 +7,12 @@ import dominio.EspacioRepository;
 import dominio.SimuladorLuces;
 import dominio.SimuladorTemperatura;
 
+/**
+ * Simulador de un espacio
+ */
 public class SimuladorEspacio extends Thread {
 	
+	/* Atributos publicos */
 	public static int HORA_ENTRADA = 8;
 	public static int HORA_SALIDA = 21;
 	
@@ -17,6 +21,10 @@ public class SimuladorEspacio extends Thread {
 	
 	private EspacioRepository repo;
 
+	/**
+	 * Metodo creador
+	 * @param repo instancia del repositorio que usar
+	 */
 	public SimuladorEspacio(EspacioRepository repo) {
 		this.repo = repo;
 	}

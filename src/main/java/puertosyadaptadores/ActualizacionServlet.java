@@ -12,11 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import aplicacion.ActualizaEspacio;
 import dominio.Espacio;
 
+/**
+ * Servlet de actualizacion de espacios
+ */
 @WebServlet(value = "/api/actualizacion", name = "ActualizacionServlet")
 public class ActualizacionServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private boolean luz = false;
 	private boolean puertas = false;
 	private boolean presencia = false;
@@ -29,6 +32,14 @@ public class ActualizacionServlet extends HttpServlet {
 		handleRequest(req, resp);
 	}
 
+	/**
+	 * Metodo que maneja la respuesta a enviar al cliente
+	 * 
+	 * @param req
+	 *            request
+	 * @param resp
+	 *            response
+	 */
 	private void handleRequest(HttpServletRequest req, HttpServletResponse resp) {
 		String response = null;
 
@@ -40,15 +51,13 @@ public class ActualizacionServlet extends HttpServlet {
 		String strTempObj = req.getParameter("temperatura_objetivo");
 
 		resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-				
-		if(peticionCorrecta(id,strLuz,strPuertas,strPresencia,strTemp,strTempObj)) {
-			Object[] actualizado = ActualizaEspacio.actualizarEspacio(id,strLuz, luz, strPuertas,
-					puertas, strPresencia, presencia, temp, tempObj);
-			/*Espacio espacio = repository.findById(id);
-			espacio = actualizarEspacio(espacio, strLuz, luz, strPuertas,
-					puertas, strPresencia, presencia, temp, tempObj);
-			boolean actualizado = repository.updateById(espacio);*/
-			
+
+		if (peticionCorrecta(id, strLuz, strPuertas, strPresencia, strTemp,
+				strTempObj)) {
+			Object[] actualizado = ActualizaEspacio.actualizarEspacio(id,
+					strLuz, luz, strPuertas, puertas, strPresencia, presencia,
+					temp, tempObj);
+
 			if ((Boolean) actualizado[1]) {
 				response = ((Espacio) actualizado[0]).toJSON();
 				resp.setStatus(HttpServletResponse.SC_OK);
@@ -57,6 +66,14 @@ public class ActualizacionServlet extends HttpServlet {
 		setResponse(response, resp);
 	}
 
+	/**
+	 * Agrega una respuesta a la response
+	 * 
+	 * @param response
+	 *            respuesta a agregar
+	 * @param resp
+	 *            response
+	 */
 	private void setResponse(String response, HttpServletResponse resp) {
 		resp.setContentType("application/json");
 		try {
@@ -67,10 +84,33 @@ public class ActualizacionServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
-	private boolean peticionCorrecta(String id,String strLuz,
-			String strPuertas,String strPresencia,String strTemp,String strTempObj) {
-		assert id!=null;
+
+	/**
+	 * Comprueba si la peticion es correcta
+	 * 
+	 * @param id
+	 *            identificador
+	 * @param strLuz
+	 *            identificador de luz
+	 * @param strPuertas
+	 *            identificador de puertas
+	 * @param strPresencia
+	 *            identificador de presencia
+	 * @param strTemp
+	 *            identificador de temperatura
+	 * @param strTempObj
+	 *            identificador de temperatura objetivo
+	 * @return
+	 */
+	private boolean peticionCorrecta(String id, String strLuz,
+			String strPuertas, String strPresencia, String strTemp,
+			String strTempObj) {
+		try {
+			assert id != null;
+		} catch (AssertionError ae) {
+			System.err.println(ae.getMessage());
+		}
+
 		if (id != null) {
 			if (strLuz != null) {
 				luz = Boolean.valueOf(strLuz);

@@ -14,7 +14,10 @@ import aplicacion.BuscaEspacio;
 import dominio.Espacio;
 import dominio.EspacioRepository;
 
-@WebServlet(value="/api/espacios", name="EspaciosServlet")
+/**
+ * Servlet de obtencion de espacios
+ */
+@WebServlet(value = "/api/espacios", name = "EspaciosServlet")
 public class EspaciosServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -28,6 +31,14 @@ public class EspaciosServlet extends HttpServlet {
 		handleRequest(req, resp);
 	}
 
+	/**
+	 * Maneja la respuesta al cliente
+	 * 
+	 * @param req
+	 *            request
+	 * @param resp
+	 *            response
+	 */
 	private void handleRequest(HttpServletRequest req, HttpServletResponse resp) {
 		String response = null;
 		String tipo_espacio = null;
@@ -38,27 +49,41 @@ public class EspaciosServlet extends HttpServlet {
 
 		resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 
-
 		List<Espacio> lista = null;
 
 		/* Chequear parametros */
-		if (strFloor != null && strFloor.matches("^\\d+$") && tipo_espacio != null) {
-			lista = BuscaEspacio.buscarEspacio(Integer.parseInt(strFloor), tipo_espacio);
+		if (strFloor != null && strFloor.matches("^\\d+$")
+				&& tipo_espacio != null) {
+			lista = BuscaEspacio.buscarEspacio(Integer.parseInt(strFloor),
+					tipo_espacio);
 		} else {
 			lista = repository.findAll();
 		}
-		assert lista!=null;
+
+		try {
+			assert lista != null;
+		} catch (AssertionError ae) {
+			System.err.println(ae.getMessage());
+		}
 		if (lista != null) {
 			resp.setStatus(HttpServletResponse.SC_OK);
 			response = "{ \"espacios\" : [ ";
-			for(Espacio espacio: lista) {
+			for (Espacio espacio : lista) {
 				response += espacio.toJSON() + ",";
 			}
-			response = response.substring(0, response.length()-1) + "] }";
+			response = response.substring(0, response.length() - 1) + "] }";
 		}
 		setResponse(response, resp);
 	}
 
+	/**
+	 * Agrega una respuesta a la response
+	 * 
+	 * @param response
+	 *            respuesta
+	 * @param resp
+	 *            response
+	 */
 	private void setResponse(String response, HttpServletResponse resp) {
 		resp.setContentType("application/json");
 		try {
