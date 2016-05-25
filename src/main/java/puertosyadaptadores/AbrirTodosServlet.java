@@ -34,7 +34,7 @@ public class AbrirTodosServlet extends HttpServlet {
 	 *            response
 	 */
 	private void handleRequest(HttpServletRequest req, HttpServletResponse resp) {
-		String response = null;
+		String response = "Se han pasado mal los parámetros";
 		String planta = null;
 		String edificio = null;
 
@@ -45,11 +45,12 @@ public class AbrirTodosServlet extends HttpServlet {
 
 		/* Chequear parametros */
 		if (edificio != null && planta != null) {
-			boolean ok = GestionaEspacio.abrirTodosEspacios(Integer.parseInt(edificio), Integer.parseInt(planta));
+			response = edificio+" "+planta;
+			/*boolean ok = GestionaEspacio.abrirTodosEspacios(Integer.parseInt(edificio), Integer.parseInt(planta));
 			if (ok) {
 				resp.setStatus(HttpServletResponse.SC_OK);
 				response = "Operación realizada correctamente";
-			}
+			}*/
 		}
 		setResponse(response, resp);
 	}
@@ -63,7 +64,7 @@ public class AbrirTodosServlet extends HttpServlet {
 	 *            response
 	 */
 	private void setResponse(String response, HttpServletResponse resp) {
-		resp.setContentType("text/html");
+		resp.setContentType("text/plain");
 		try {
 			PrintWriter out = resp.getWriter();
 			out.print(response);

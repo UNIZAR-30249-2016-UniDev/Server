@@ -34,7 +34,7 @@ public class EncenderTodosServlet extends HttpServlet {
 	 *            response
 	 */
 	private void handleRequest(HttpServletRequest req, HttpServletResponse resp) {
-		String response = null;
+		String response = "Se han pasado mal los parámetros";
 		String planta = null;
 		String edificio = null;
 
@@ -63,7 +63,7 @@ public class EncenderTodosServlet extends HttpServlet {
 	 *            response
 	 */
 	private void setResponse(String response, HttpServletResponse resp) {
-		resp.setContentType("text/html");
+		resp.setContentType("text/plain");
 		try {
 			PrintWriter out = resp.getWriter();
 			out.print(response);
