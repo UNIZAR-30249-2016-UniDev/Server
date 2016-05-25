@@ -13,13 +13,9 @@ public class ServicioApagadoLuces {
 	 * @return true si se puede apagar la luz, false en caso contrario
 	 */
 	public static boolean sePuedeApagar(Espacio sp) {
-		if (sp.presenciaApagada()) {
+		if (sp.presenciaApagada() || sp.lucesApagadas()) {
 			return false;
 		}
-		if (sp.lucesApagadas()) {
-			return false;
-		}
-
 		return true;
 	}
 

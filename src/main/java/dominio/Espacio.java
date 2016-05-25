@@ -162,7 +162,8 @@ public class Espacio extends BaseEntity {
 	 *         contrario
 	 */
 	public boolean abrirPuertas() {
-		if (!puertas.estaEncendido()) {
+		EspecificacionAbrirEspacio espec = new EspecificacionAbrirEspacio(this);
+		if (!puertas.estaEncendido() && espec.esAbrible()) {
 			puertas.actuar();
 		}
 		return puertas.estaEncendido();

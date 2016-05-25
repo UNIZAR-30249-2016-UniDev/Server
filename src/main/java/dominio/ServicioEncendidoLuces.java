@@ -13,13 +13,9 @@ public class ServicioEncendidoLuces {
 	 * @return true si se puede encender las luces, false en caso contrario
 	 */
 	public static boolean sePuedeEncender(Espacio sp) {
-		if (sp.presenciaApagada()) {
+		if (sp.presenciaApagada() || sp.lucesEncendidas()) {
 			return false;
 		}
-		if (sp.lucesEncendidas()) {
-			return false;
-		}
-
 		return true;
 	}
 

@@ -43,7 +43,7 @@ public class ActualizaEspacio {
 			double calefaccion) {
 		Object[] tabla = new Object[2];
 		Espacio espacio = repository.findById(id);
-
+		
 		try {
 			assert espacio != null;
 		} catch (AssertionError ae) {
