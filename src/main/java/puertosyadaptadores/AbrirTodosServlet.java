@@ -45,12 +45,11 @@ public class AbrirTodosServlet extends HttpServlet {
 
 		/* Chequear parametros */
 		if (edificio != null && planta != null) {
-			response = edificio+" "+planta;
-			/*boolean ok = GestionaEspacio.abrirTodosEspacios(Integer.parseInt(edificio), Integer.parseInt(planta));
+			boolean ok = GestionaEspacio.abrirTodosEspacios(Integer.parseInt(edificio), Integer.parseInt(planta));
 			if (ok) {
 				resp.setStatus(HttpServletResponse.SC_OK);
 				response = "Operación realizada correctamente";
-			}*/
+			}
 		}
 		setResponse(response, resp);
 	}
